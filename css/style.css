@@ -6,8 +6,10 @@
     --cyan-dim: #00b8a5;
     --cyan-glow: rgba(0, 229, 204, 0.1);
     --text: #e8f0ef;
-    --text-dim: #7a9e9a;
-    --text-muted: #3a5a58;
+    --text-dim: #9abfbabf;
+    /* Improved contrast */
+    --text-muted: #719391;
+    /* Improved contrast */
     --border: rgba(0, 229, 204, 0.12);
     --border2: rgba(255, 255, 255, 0.06);
 }
@@ -179,8 +181,8 @@ nav {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding: 12vh 60px 80px;
+    justify-content: flex-start;
+    padding: 22vh 60px 80px;
     position: relative;
     overflow: hidden;
 }

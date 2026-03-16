@@ -891,17 +891,21 @@ document.querySelectorAll('.service-card').forEach(function (card) {
     const speed = 100;
     const increment = target / speed;
     let currentCount = 0;
+    
+    // Read properties ONCE before the animation loop avoids reading the DOM on each tick (Forced Reflow)
+    const originalText = counter.innerText || '';
+    const hasK = originalText.includes('K');
+    const hasPlus = originalText.includes('+');
+    let suffix = hasK ? 'K+' : (hasPlus ? '+' : '');
+    if (counter.classList.contains('counter')) suffix = '';
+
     const update = () => {
       currentCount += increment;
       if (currentCount < target) {
-        let suffix = counter.innerText.includes('K') ? 'K+' : (counter.innerText.includes('+') ? '+' : '');
-        if (counter.classList.contains('counter')) suffix = '';
-        counter.innerText = Math.ceil(currentCount) + suffix;
+        counter.textContent = Math.ceil(currentCount) + suffix;
         setTimeout(update, 20);
       } else {
-        let finalSuffix = counter.innerText.includes('K') ? 'K+' : (counter.innerText.includes('+') ? '+' : '');
-        if (counter.classList.contains('counter')) finalSuffix = '';
-        counter.innerText = target + finalSuffix;
+        counter.textContent = target + suffix;
       }
     };
     update();

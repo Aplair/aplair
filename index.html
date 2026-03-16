@@ -44,7 +44,7 @@
 </head>
 
 <body>
-    <nav><a href="#" class="nav-logo"><img src="images/nav-logo.png"
+    <nav><a href="#" class="nav-logo" aria-label="Aplair Home Page"><img src="images/nav-logo.png"
                 alt="Aplair - Professional Real Estate Video Editing | مونتاج عقاري احترافي" width="44" height="44"
                 fetchpriority="high"></a>
         <ul class="nav-links">
@@ -56,10 +56,12 @@
             <li><a href="#contact" data-en="Contact" data-ar="تواصل">Contact</a></li>
         </ul>
         <div class="nav-right">
-            <div class="menu-toggle" id="menu-toggle"><span></span><span></span><span></span></div>
-            <div class="lang-toggle"><button class="lang-btn active" id="btn-en">EN</button><button class="lang-btn"
-                    id="btn-ar">AR</button></div><button class="btn-hire" id="btn-hire" data-en="BOOK NOW"
-                data-ar="احجز الآن">BOOK NOW</button>
+            <div class="menu-toggle" id="menu-toggle" role="button" aria-label="Toggle Menu" tabindex="0">
+                <span></span><span></span><span></span></div>
+            <div class="lang-toggle"><button class="lang-btn active" id="btn-en"
+                    aria-label="Switch to English">EN</button><button class="lang-btn" id="btn-ar"
+                    aria-label="Switch to Arabic">AR</button></div><button class="btn-hire" id="btn-hire"
+                data-en="BOOK NOW" data-ar="احجز الآن">BOOK NOW</button>
         </div>
     </nav><!-- HERO -->
     <section class="hero">
@@ -201,20 +203,21 @@
                 عقاري</span></div>
     </div><!-- VIDEO MODAL --><!-- ======== HORIZONTAL REELS MODAL ======== -->
     <div class="reels-modal" id="reels-modal">
-        <div class="reels-close" id="reels-close"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2">
+        <div class="reels-close" id="reels-close" role="button" aria-label="Close Reels" tabindex="0"><svg width="24"
+                height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
                 <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg></div>
         <div class="reels-container" id="reels-container"><!-- Slides will be injected via JS --></div>
         <!-- Navigation Hints (Interactive SVG) -->
-        <div class="reels-nav-hint reels-nav-hint--left" title="Previous"><svg width="32" height="32"
-                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                stroke-linejoin="round">
+        <div class="reels-nav-hint reels-nav-hint--left" title="Previous" role="button" aria-label="Previous Reel"
+            tabindex="0"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="15 18 9 12 15 6"></polyline>
             </svg></div>
-        <div class="reels-nav-hint reels-nav-hint--right" title="Next"><svg width="32" height="32" viewBox="0 0 24 24"
-                fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <div class="reels-nav-hint reels-nav-hint--right" title="Next" role="button" aria-label="Next Reel"
+            tabindex="0"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="9 18 15 12 9 6"></polyline>
             </svg></div><!-- Swipe Tutorial Overlay -->
         <div class="reels-tutorial" id="reels-tutorial">
@@ -232,7 +235,8 @@
         </div>
     </div>
     <div class="vid-modal-bg" id="vid-modal">
-        <div class="vid-modal-inner" id="vid-inner"><button class="vid-close" id="vid-close">&times;</button>
+        <div class="vid-modal-inner" id="vid-inner"><button class="vid-close" id="vid-close"
+                aria-label="Close video player">&times;</button>
             <div class="vid-wrapper" id="vid-wrapper">
                 <div class="vid-spinner" id="vid-spinner"></div>
                 <div class="vid-protect" id="vid-protect"></div>
@@ -240,8 +244,8 @@
                         fill="#00e5cc">
                         <polygon points="5,3 19,12 5,21" />
                     </svg></div>
-            </div><button class="vid-nav vid-prev" id="vid-prev">&#10095;</button><button class="vid-nav vid-next"
-                id="vid-next">&#10094;</button>
+            </div><button class="vid-nav vid-prev" id="vid-prev" aria-label="Previous video">&#10095;</button><button
+                class="vid-nav vid-next" id="vid-next" aria-label="Next video">&#10094;</button>
         </div>
     </div><!-- SERVICES -->
     <section class="services" id="services">
@@ -1198,20 +1202,21 @@
             </div>
             <div class="modal-section-title" data-en="Project Brief" data-ar="تفاصيل المشروع">Project Brief</div>
             <div class="form-wrap" style="padding:0; background:transparent; border:none;">
-                <div class="form-group"><label class="form-label" data-en="Your Name" data-ar="اسمك">Your
+                <div class="form-group"><label class="form-label" for="bookingName" data-en="Your Name"
+                        data-ar="اسمك">Your
                         Name</label><input type="text" id="bookingName" class="form-input"
                         oninput="this.classList.remove('field-error'); this.parentElement.classList.toggle('filled',this.value.length>0)">
                     <div class="form-underline"></div>
                 </div>
-                <div class="form-group"><label class="form-label" data-en="Email Address"
+                <div class="form-group"><label class="form-label" for="bookingEmail" data-en="Email Address"
                         data-ar="البريد الإلكتروني">Email Address</label><input type="email" id="bookingEmail"
                         class="form-input"
                         oninput="this.classList.remove('field-error'); this.parentElement.classList.toggle('filled',this.value.length>0);"
                         onkeydown=" var key = event.key; if (key && key.length === 1 && /[؀-ۿ]/.test(key)) { event.preventDefault(); showToast(currentLang === 'ar' ? '⚠️ البريد الإلكتروني يجب أن يُكتب بالإنجليزية فقط' : '⚠️ Email must be written in English only', 'error'); } ">
                     <div class="form-underline"></div>
                 </div>
-                <div class="form-group" style="padding-top: 22px;"><label class="form-label" style="top:0;"
-                        data-en="WhatsApp Number" data-ar="رقم واتساب">WhatsApp Number</label>
+                <div class="form-group" style="padding-top: 22px;"><label class="form-label" for="bookingWA"
+                        style="top:0;" data-en="WhatsApp Number" data-ar="رقم واتساب">WhatsApp Number</label>
                     <div style="display: flex; gap: 10px; align-items: center; margin-top: 8px;">
                         <!-- Custom Country Dropdown -->
                         <div class="custom-country-select" id="countryDropdown">
@@ -1220,7 +1225,7 @@
                                     class="dropdown-arrow">▾</span></div>
                             <div class="country-list" id="countryList">
                                 <div class="country-search-wrap"><input type="text" class="country-search"
-                                        id="countrySearch" placeholder="Search country..."
+                                        id="countrySearch" aria-label="Search Country" placeholder="Search country..."
                                         oninput="filterCountries(this.value)" onclick="event.stopPropagation()"></div>
                                 <div id="countryOptions"></div>
                             </div>
@@ -1232,15 +1237,16 @@
                     </div>
                     <div class="form-underline"></div>
                 </div>
-                <div class="form-group"><label class="form-label" data-en="Tell us about your project"
-                        data-ar="أخبرنا عن مشروعك">Tell us about your project</label><textarea id="bookingBrief"
-                        class="form-textarea"
+                <div class="form-group"><label class="form-label" for="bookingBrief"
+                        data-en="Tell us about your project" data-ar="أخبرنا عن مشروعك">Tell us about your
+                        project</label><textarea id="bookingBrief" class="form-textarea"
                         oninput="this.classList.remove('field-error'); this.parentElement.classList.toggle('filled',this.value.length>0)"></textarea>
                     <div class="form-underline"></div>
                 </div>
-                <div class="form-group filled"><label class="form-label" data-en="Reference Link (Optional)"
-                        data-ar="رابط مرجعي (اختياري)">Reference Link (Optional)</label><input type="url"
-                        id="bookingReference" class="form-input" placeholder="https://..."
+                <div class="form-group filled"><label class="form-label" for="bookingReference"
+                        data-en="Reference Link (Optional)" data-ar="رابط مرجعي (اختياري)">Reference Link
+                        (Optional)</label><input type="url" id="bookingReference" class="form-input"
+                        placeholder="https://..."
                         oninput="this.parentElement.classList.toggle('filled',this.value.length>0)">
                     <div class="form-underline"></div>
                 </div>
