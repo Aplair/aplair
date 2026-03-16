@@ -179,8 +179,8 @@ nav {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    padding: 0 60px 80px;
+    justify-content: center;
+    padding: 12vh 60px 80px;
     position: relative;
     overflow: hidden;
 }
