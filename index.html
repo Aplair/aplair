@@ -57,7 +57,8 @@
         </ul>
         <div class="nav-right">
             <div class="menu-toggle" id="menu-toggle" role="button" aria-label="Toggle Menu" tabindex="0">
-                <span></span><span></span><span></span></div>
+                <span></span><span></span><span></span>
+            </div>
             <div class="lang-toggle"><button class="lang-btn active" id="btn-en"
                     aria-label="Switch to English">EN</button><button class="lang-btn" id="btn-ar"
                     aria-label="Switch to Arabic">AR</button></div><button class="btn-hire" id="btn-hire"
@@ -143,7 +144,7 @@
                             <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                             <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                         </svg></div>
-                    <h3 data-en="Watch Our Work" data-ar="شاهد أعمالنا">Watch Our Work</h3>
+                    <h2 class="reels-launch-title" data-en="Watch Our Work" data-ar="شاهد أعمالنا">Watch Our Work</h2>
                     <p data-en="Discover How We Turn Properties into Deals" data-ar="اكتشف كيف نحول العقارات إلى صفقات">
                         Discover How We Turn Properties into Deals</p><button class="btn-watch-reels"><span
                             data-en="WATCH REELS" data-ar="مشاهدة الريلز">WATCH REELS</span><svg width="20" height="20"
@@ -643,7 +644,7 @@
                 <div class="testimonial-author">
                     <div class="author-avatar">O</div>
                     <div class="author-info">
-                        <h4 data-en="Omar Tarek" data-ar="عمر طارق">Omar Tarek</h4>
+                        <div class="testimonial-author-name" data-en="Omar Tarek" data-ar="عمر طارق">Omar Tarek</div>
                         <p data-en="Real Estate Marketing Director" data-ar="مدير تسويق عقاري">Real Estate Marketing
                             Director</p>
                     </div>
@@ -659,7 +660,8 @@
                 <div class="testimonial-author">
                     <div class="author-avatar">S</div>
                     <div class="author-info">
-                        <h4 data-en="Sarah Mahmoud" data-ar="سارة محمود">Sarah Mahmoud</h4>
+                        <div class="testimonial-author-name" data-en="Sarah Mahmoud" data-ar="سارة محمود">Sarah Mahmoud
+                        </div>
                         <p data-en="Managing Director, Luxury Homes" data-ar="مديرة شركة عقارات فاخرة">Managing
                             Director, Luxury Homes</p>
                     </div>
@@ -738,9 +740,9 @@
                     <li><span data-en="AI Architectural Visualization" data-ar="تصور معماري بالذكاء الاصطناعي">AI
                             Architectural Visualization</span><span class="addon-price" data-en="$40"
                             data-ar="40$">$40</span></li>
-                </ul><a href="javascript:void(0)" class="btn-pricing btn-open-booking"
+                </ul><button type="button" class="btn-pricing btn-open-booking"
                     data-package-en="Luxury Drone Cinematic Edit" data-package-ar="مونتاج سينمائي فاخر للقطات الدرون"
-                    data-price="149" data-en="GET STARTED" data-ar="ابدأ الآن">GET STARTED</a>
+                    data-price="149" data-en="GET STARTED" data-ar="ابدأ الآن">GET STARTED</button>
                 <div class="card-payment-notice"><span class="live-dot" style="width:7px;height:7px;"></span><span
                         data-en="Full payment required before project start"
                         data-ar="يُشترط الدفع الكامل مسبقاً قبل بدء العمل">Full payment required before project
@@ -803,9 +805,9 @@
                     <li><span data-en="AI Architectural Visualization" data-ar="تصور معماري بالذكاء الاصطناعي">AI
                             Architectural Visualization</span><span class="addon-price" data-en="$40"
                             data-ar="40$">$40</span></li>
-                </ul><a href="javascript:void(0)" class="btn-pricing btn-open-booking"
+                </ul><button type="button" class="btn-pricing btn-open-booking"
                     data-package-en="Satellite real estate Showcase" data-package-ar="استعراض عقاري بالأقمار الصناعية"
-                    data-price="200" data-en="GET STARTED" data-ar="ابدأ الآن">GET STARTED</a>
+                    data-price="200" data-en="GET STARTED" data-ar="ابدأ الآن">GET STARTED</button>
                 <div class="card-payment-notice"><span class="live-dot" style="width:7px;height:7px;"></span><span
                         data-en="Full payment required before project start"
                         data-ar="يُشترط الدفع الكامل مسبقاً قبل بدء العمل">Full payment required before project
@@ -868,9 +870,9 @@
                             </svg></span><span data-en="Delivery within 3-5 business days"
                             data-ar="التسليم خلال 3 إلى 5 أيام عمل">Delivery within 3&ndash;5 business days</span></li>
                 </ul>
-                <div style="flex-grow:1"></div><a href="javascript:void(0)" class="btn-pricing btn-open-booking"
+                <div style="flex-grow:1"></div><button type="button" class="btn-pricing btn-open-booking"
                     data-package-en="Premium real estate Bundle" data-package-ar="الباقة الشاملة العقارية الكاملة"
-                    data-price="350" data-en="CLAIM PACKAGE" data-ar="احجز باقتك">CLAIM PACKAGE</a>
+                    data-price="350" data-en="CLAIM PACKAGE" data-ar="احجز باقتك">CLAIM PACKAGE</button>
                 <div class="card-payment-notice"><span class="live-dot" style="width:7px;height:7px;"></span><span
                         data-en="Full payment required before project start"
                         data-ar="يُشترط الدفع الكامل مسبقاً قبل بدء العمل">Full payment required before project
@@ -1018,30 +1020,33 @@
                 <div class="contact-note" data-en="" data-ar=></div>
             </div>
             <div class="form-wrap">
-                <div class="form-group"><label class="form-label" data-en="Your Name" data-ar="اسمك">Your
+                <div class="form-group"><label class="form-label" for="contactName" data-en="Your Name"
+                        data-ar="اسمك">Your
                         Name</label><input type="text" id="contactName" class="form-input"
                         oninput="this.classList.remove('field-error'); this.parentElement.classList.toggle('filled',this.value.length>0)">
                     <div class="form-underline"></div>
                 </div>
-                <div class="form-group"><label class="form-label" data-en="Email Address"
+                <div class="form-group"><label class="form-label" for="contactEmail" data-en="Email Address"
                         data-ar="البريد الإلكتروني">Email Address</label><input type="email" id="contactEmail"
                         class="form-input"
                         oninput="this.classList.remove('field-error'); this.parentElement.classList.toggle('filled',this.value.length>0);"
                         onkeydown=" var key = event.key; if (key && key.length === 1 && /[؀-ۿ]/.test(key)) { event.preventDefault(); showToast(currentLang === 'ar' ? '⚠️ البريد الإلكتروني يجب أن يُكتب بالإنجليزية فقط' : '⚠️ Email must be written in English only', 'error'); } ">
                     <div class="form-underline"></div>
                 </div>
-                <div class="form-group" style="padding-top: 22px;"><label class="form-label" style="top:0;"
-                        data-en="WhatsApp Number" data-ar="رقم واتساب">WhatsApp Number</label>
+                <div class="form-group" style="padding-top: 22px;"><label class="form-label" for="contactWA"
+                        style="top:0;" data-en="WhatsApp Number" data-ar="رقم واتساب">WhatsApp Number</label>
                     <div style="display: flex; gap: 10px; align-items: center; margin-top: 8px;">
                         <!-- Custom Country Dropdown -->
                         <div class="custom-country-select" id="contactCountryDropdown">
                             <div class="country-selected" id="contactCountrySelected"
-                                onclick="toggleContactCountryDropdown()"><span id="contactSelectedFlag">🇪🇬</span><span
+                                onclick="toggleContactCountryDropdown()"><span id="contactSelectedFlag" role="img"
+                                    aria-label="Selected Country Flag">🇪🇬</span><span
                                     id="contactSelectedCode">+20</span><span class="dropdown-arrow">▾</span></div>
                             <div class="country-list" id="contactCountryList">
                                 <div class="country-search-wrap"><input type="text" class="country-search"
-                                        id="contactCountrySearch" placeholder="Search country..."
-                                        oninput="filterContactCountries(this.value)" onclick="event.stopPropagation()">
+                                        id="contactCountrySearch" aria-label="Search contact country"
+                                        placeholder="Search country..." oninput="filterContactCountries(this.value)"
+                                        onclick="event.stopPropagation()">
                                 </div>
                                 <div id="contactCountryOptions"></div>
                             </div>
@@ -1053,15 +1058,16 @@
                     </div>
                     <div class="form-underline"></div>
                 </div>
-                <div class="form-group"><label class="form-label" data-en="Tell us about your project"
-                        data-ar="أخبرنا عن مشروعك">Tell us about your project</label><textarea id="contactBrief"
-                        class="form-textarea"
+                <div class="form-group"><label class="form-label" for="contactBrief"
+                        data-en="Tell us about your project" data-ar="أخبرنا عن مشروعك">Tell us about your
+                        project</label><textarea id="contactBrief" class="form-textarea"
                         oninput="this.classList.remove('field-error'); this.parentElement.classList.toggle('filled',this.value.length>0)"></textarea>
                     <div class="form-underline"></div>
                 </div>
-                <div class="form-group filled"><label class="form-label" data-en="Reference Link (Optional)"
-                        data-ar="رابط مرجعي (اختياري)">Reference Link (Optional)</label><input type="url"
-                        id="contactReference" class="form-input" placeholder="https://..."
+                <div class="form-group filled"><label class="form-label" for="contactReference"
+                        data-en="Reference Link (Optional)" data-ar="رابط مرجعي (اختياري)">Reference Link
+                        (Optional)</label><input type="url" id="contactReference" class="form-input"
+                        placeholder="https://..."
                         oninput="this.parentElement.classList.toggle('filled',this.value.length>0)">
                     <div class="form-underline"></div>
                 </div>
@@ -1221,8 +1227,8 @@
                         <!-- Custom Country Dropdown -->
                         <div class="custom-country-select" id="countryDropdown">
                             <div class="country-selected" id="countrySelected" onclick="toggleCountryDropdown()"><span
-                                    id="selectedFlag">🇪🇬</span><span id="selectedCode">+20</span><span
-                                    class="dropdown-arrow">▾</span></div>
+                                    id="selectedFlag" role="img" aria-label="Selected Country Flag">🇪🇬</span><span
+                                    id="selectedCode">+20</span><span class="dropdown-arrow">▾</span></div>
                             <div class="country-list" id="countryList">
                                 <div class="country-search-wrap"><input type="text" class="country-search"
                                         id="countrySearch" aria-label="Search Country" placeholder="Search country..."
@@ -1270,7 +1276,6 @@
         <div class="footer-copy" data-en="© 2026 Aplair. All rights reserved."
             data-ar="© 2026 Aplair. جميع الحقوق محفوظة."> © 2026 Aplair. All rights reserved.</div>
     </footer>
-    <script defer data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script defer src="js/script.js"></script>
 </body>
 
