@@ -472,10 +472,10 @@ function renderCountryOptions(list) {
     const div = document.createElement('div');
     div.className = 'country-option' + (c.code === document.getElementById('bookingCountryCode').value && c.name === document.getElementById('countrySelected').dataset.name ? ' selected' : '');
     var displayName = (document.body.classList.contains('ar') && c.ar) ? c.ar : c.name;
-    div.innerHTML = '<span class="country-flag"><img src="' + getFlagUrl(c.iso) + '" width="24" height="16" style="border-radius:2px;object-fit:cover;vertical-align:middle;"></span><span class="country-name">' + displayName + '</span><span class="country-dial">' + c.code + '</span>';
+    div.innerHTML = '<span class="country-flag"><img src="' + getFlagUrl(c.iso) + '" width="24" height="16" loading="lazy" style="border-radius:2px;object-fit:cover;vertical-align:middle;"></span><span class="country-name">' + displayName + '</span><span class="country-dial">' + c.code + '</span>';
     div.onclick = function () {
       document.getElementById('bookingCountryCode').value = c.code;
-      document.getElementById('selectedFlag').innerHTML = '<img src="' + getFlagUrl(c.iso) + '" width="24" height="16" style="border-radius:2px;object-fit:cover;vertical-align:middle;">';
+      document.getElementById('selectedFlag').innerHTML = '<img src="' + getFlagUrl(c.iso) + '" width="24" height="16" loading="lazy" style="border-radius:2px;object-fit:cover;vertical-align:middle;">';
       document.getElementById('selectedCode').textContent = c.code;
       document.getElementById('countrySelected').dataset.name = c.name;
       document.getElementById('countryDropdown').classList.remove('open');
@@ -512,7 +512,7 @@ document.addEventListener('click', function (e) {
 });
 renderCountryOptions(countries);
 document.getElementById('countrySelected').dataset.name = 'Egypt';
-document.getElementById('selectedFlag').innerHTML = '<img src="https://flagcdn.com/w40/eg.png" width="24" height="16" style="border-radius:2px;object-fit:cover;vertical-align:middle;">';
+document.getElementById('selectedFlag').innerHTML = '<img src="https://flagcdn.com/w40/eg.png" width="24" height="16" loading="lazy" style="border-radius:2px;object-fit:cover;vertical-align:middle;">';
 function renderContactCountryOptions(list) {
   const container = document.getElementById('contactCountryOptions');
   container.innerHTML = '';
@@ -520,10 +520,10 @@ function renderContactCountryOptions(list) {
     const div = document.createElement('div');
     div.className = 'country-option' + (c.code === document.getElementById('contactCountryCode').value && c.name === document.getElementById('contactCountrySelected').dataset.name ? ' selected' : '');
     var displayName = (document.body.classList.contains('ar') && c.ar) ? c.ar : c.name;
-    div.innerHTML = '<span class="country-flag"><img src="' + getFlagUrl(c.iso) + '" width="24" height="16" style="border-radius:2px;object-fit:cover;vertical-align:middle;"></span><span class="country-name">' + displayName + '</span><span class="country-dial">' + c.code + '</span>';
+    div.innerHTML = '<span class="country-flag"><img src="' + getFlagUrl(c.iso) + '" width="24" height="16" loading="lazy" style="border-radius:2px;object-fit:cover;vertical-align:middle;"></span><span class="country-name">' + displayName + '</span><span class="country-dial">' + c.code + '</span>';
     div.onclick = function () {
       document.getElementById('contactCountryCode').value = c.code;
-      document.getElementById('contactSelectedFlag').innerHTML = '<img src="' + getFlagUrl(c.iso) + '" width="24" height="16" style="border-radius:2px;object-fit:cover;vertical-align:middle;">';
+      document.getElementById('contactSelectedFlag').innerHTML = '<img src="' + getFlagUrl(c.iso) + '" width="24" height="16" loading="lazy" style="border-radius:2px;object-fit:cover;vertical-align:middle;">';
       document.getElementById('contactSelectedCode').textContent = c.code;
       document.getElementById('contactCountrySelected').dataset.name = c.name;
       document.getElementById('contactCountryDropdown').classList.remove('open');
@@ -550,7 +550,7 @@ function filterContactCountries(q) {
 }
 renderContactCountryOptions(countries);
 document.getElementById('contactCountrySelected').dataset.name = 'Egypt';
-document.getElementById('contactSelectedFlag').innerHTML = '<img src="https://flagcdn.com/w40/eg.png" width="24" height="16" style="border-radius:2px;object-fit:cover;vertical-align:middle;">';
+document.getElementById('contactSelectedFlag').innerHTML = '<img src="https://flagcdn.com/w40/eg.png" width="24" height="16" loading="lazy" style="border-radius:2px;object-fit:cover;vertical-align:middle;">';
 var revealTarget = document.querySelectorAll(".reveal-up");
 var revealObs = new IntersectionObserver(function (entries, observer) {
   entries.forEach(function (entry) {
@@ -748,6 +748,15 @@ document.querySelectorAll('.service-card').forEach(function (card) {
     slide.appendChild(info);
     return slide;
   }
+  var wistiaLoaded = false;
+  function ensureWistia() {
+    if(wistiaLoaded) return;
+    wistiaLoaded = true;
+    var s = document.createElement('script');
+    s.src = "https://fast.wistia.net/assets/external/E-v1.js";
+    s.async = true;
+    document.head.appendChild(s);
+  }
   function buildReels() {
     if (builtOnce) return;
     builtOnce = true;
@@ -774,7 +783,11 @@ document.querySelectorAll('.service-card').forEach(function (card) {
       reelsObserver.observe(slide);
     });
   }
+    trigger.addEventListener('pointerenter', ensureWistia, {once: true});
+    trigger.addEventListener('mouseover', ensureWistia, {once: true});
+
   function openReels() {
+    ensureWistia();
     buildReels();
     modal.style.display = 'flex';
     document.body.style.overflow = 'hidden';

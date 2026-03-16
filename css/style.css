@@ -311,6 +311,7 @@ body.ar .stat-card {
     color: var(--text);
     position: relative;
     z-index: 2;
+    min-height: clamp(140px, 22vw, 290px);
 }
 
 .hero-title .accent {
@@ -337,6 +338,7 @@ body.ar .hero-title {
     color: var(--text-dim);
     max-width: 460px;
     line-height: 1.9;
+    min-height: 100px;
 }
 
 .hero-cta {
