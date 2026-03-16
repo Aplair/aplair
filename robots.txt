@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aplair.github.io/Aplair/sitemap.xml
