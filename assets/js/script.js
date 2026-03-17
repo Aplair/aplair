@@ -8,7 +8,7 @@ function showToast(message, type) {
   toastIcon.textContent = type === 'success' ? 'âœ“' : 'âœ•';
   toast.className = 'toast toast-' + type;
   toastBar.style.animation = 'none';
-  toastBar.offsetHeight;
+  void toastBar.offsetHeight; /* intentional reflow to restart animation */
   toastBar.style.animation = 'toastBar 3s linear forwards';
   toast.classList.add('show');
   clearTimeout(window._toastTimer);
@@ -36,10 +36,10 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll("[data-en-html]").forEach(function (el) {
       el.innerHTML = isAr ? el.dataset.arHtml : el.dataset.enHtml;
     });
-    if (typeof renderCountryOptions === 'function') {
+    if (typeof renderCountryOptions === 'function' && typeof _countryRendered !== 'undefined' && _countryRendered) {
       renderCountryOptions(countries);
     }
-    if (typeof renderContactCountryOptions === 'function') {
+    if (typeof renderContactCountryOptions === 'function' && typeof _contactCountryRendered !== 'undefined' && _contactCountryRendered) {
       renderContactCountryOptions(countries);
     }
     var activeBtn = document.querySelector(".btn-open-booking.last-clicked");
@@ -486,6 +486,7 @@ function renderCountryOptions(list) {
   });
 }
 function toggleCountryDropdown() {
+  ensureCountryRendered();
   const dd = document.getElementById('countryDropdown');
   dd.classList.toggle('open');
   if (dd.classList.contains('open')) {
@@ -510,7 +511,13 @@ document.addEventListener('click', function (e) {
     cdd.classList.remove('open');
   }
 });
-renderCountryOptions(countries);
+// Lazy render: only render country options when dropdown first opens
+var _countryRendered = false;
+function ensureCountryRendered() {
+  if (_countryRendered) return;
+  _countryRendered = true;
+  renderCountryOptions(countries);
+}
 document.getElementById('countrySelected').dataset.name = 'Egypt';
 document.getElementById('selectedFlag').innerHTML = '<img src="https://flagcdn.com/w40/eg.png" alt="Egypt Flag" width="24" height="16" loading="lazy" style="border-radius:2px;object-fit:cover;vertical-align:middle;">';
 function renderContactCountryOptions(list) {
@@ -534,6 +541,7 @@ function renderContactCountryOptions(list) {
   });
 }
 function toggleContactCountryDropdown() {
+  ensureContactCountryRendered();
   const dd = document.getElementById('contactCountryDropdown');
   dd.classList.toggle('open');
   if (dd.classList.contains('open')) {
@@ -548,7 +556,13 @@ function filterContactCountries(q) {
   });
   renderContactCountryOptions(filtered);
 }
-renderContactCountryOptions(countries);
+// Lazy render: only render contact country options when dropdown first opens
+var _contactCountryRendered = false;
+function ensureContactCountryRendered() {
+  if (_contactCountryRendered) return;
+  _contactCountryRendered = true;
+  renderContactCountryOptions(countries);
+}
 document.getElementById('contactCountrySelected').dataset.name = 'Egypt';
 document.getElementById('contactSelectedFlag').innerHTML = '<img src="https://flagcdn.com/w40/eg.png" alt="Egypt Flag" width="24" height="16" loading="lazy" style="border-radius:2px;object-fit:cover;vertical-align:middle;">';
 var revealTarget = document.querySelectorAll(".reveal-up");
@@ -851,10 +865,16 @@ document.querySelectorAll('.service-card').forEach(function (card) {
   modal.addEventListener('click', function () {
     if (tutorial.classList.contains('show')) hideTutorial();
   }, { passive: true });
+  var _cachedSlideWidth = 0;
+  function getSlideWidth() {
+    if (!_cachedSlideWidth) {
+      var slide = container.querySelector('.reel-slide');
+      _cachedSlideWidth = slide ? slide.offsetWidth + 40 : 400;
+    }
+    return _cachedSlideWidth;
+  }
   function scrollReels(direction) {
-    var slide = container.querySelector('.reel-slide');
-    if (!slide) return;
-    var slideWidth = slide.offsetWidth + 40;
+    var slideWidth = getSlideWidth();
     container.scrollBy({ left: direction === 'next' ? slideWidth : -slideWidth, behavior: 'smooth' });
     hideTutorial();
   }
