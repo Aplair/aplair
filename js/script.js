@@ -750,7 +750,7 @@ document.querySelectorAll('.service-card').forEach(function (card) {
   }
   var wistiaLoaded = false;
   function ensureWistia() {
-    if(wistiaLoaded) return;
+    if (wistiaLoaded) return;
     wistiaLoaded = true;
     var s = document.createElement('script');
     s.src = "https://fast.wistia.net/assets/external/E-v1.js";
@@ -783,8 +783,8 @@ document.querySelectorAll('.service-card').forEach(function (card) {
       reelsObserver.observe(slide);
     });
   }
-    trigger.addEventListener('pointerenter', ensureWistia, {once: true});
-    trigger.addEventListener('mouseover', ensureWistia, {once: true});
+  trigger.addEventListener('pointerenter', ensureWistia, { once: true });
+  trigger.addEventListener('mouseover', ensureWistia, { once: true });
 
   function openReels() {
     ensureWistia();
@@ -891,7 +891,7 @@ document.querySelectorAll('.service-card').forEach(function (card) {
     const speed = 100;
     const increment = target / speed;
     let currentCount = 0;
-    
+
     // Read properties ONCE before the animation loop avoids reading the DOM on each tick (Forced Reflow)
     const originalText = counter.innerText || '';
     const hasK = originalText.includes('K');
