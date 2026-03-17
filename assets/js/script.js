@@ -1,4 +1,4 @@
-﻿function showToast(message, type) {
+function showToast(message, type) {
   type = type || 'success';
   const toast = document.getElementById('toastMsg');
   const toastText = document.getElementById('toastText');
@@ -559,7 +559,7 @@ var revealObs = new IntersectionObserver(function (entries, observer) {
       observer.unobserve(entry.target);
     }
   });
-}, { rootMargin: "0px 0px -50px 0px" });
+}, { rootMargin: "0px" });
 revealTarget.forEach(function (el) {
   revealObs.observe(el);
 });
@@ -569,11 +569,20 @@ document.body.appendChild(dot);
 var outline = document.createElement("div");
 outline.className = "cursor-outline";
 document.body.appendChild(outline);
+var cursorX = 0, cursorY = 0, cursorRaf = false;
 document.addEventListener("mousemove", function (e) {
-  dot.style.left = e.clientX + "px";
-  dot.style.top = e.clientY + "px";
-  outline.style.left = e.clientX + "px";
-  outline.style.top = e.clientY + "px";
+  cursorX = e.clientX;
+  cursorY = e.clientY;
+  if (!cursorRaf) {
+    cursorRaf = true;
+    requestAnimationFrame(function() {
+      var tx = cursorX + "px";
+      var ty = cursorY + "px";
+      dot.style.transform = "translate(calc(" + tx + " - 50%), calc(" + ty + " - 50%))";
+      outline.style.transform = "translate(calc(" + tx + " - 50%), calc(" + ty + " - 50%))";
+      cursorRaf = false;
+    });
+  }
 });
 document.querySelectorAll("a, button, .project-card, .service-card, .contact-item, .lang-btn").forEach(function (el) {
   el.addEventListener("mouseenter", function () {
@@ -594,8 +603,9 @@ var revealObserver = new IntersectionObserver(function (entries, observer) {
       observer.unobserve(entry.target);
     }
   });
-}, { rootMargin: "0px 0px -50px 0px" });
+}, { rootMargin: "0px" });
 revealElements.forEach(function (el) { revealObserver.observe(el); });
+
 document.querySelectorAll('.service-card').forEach(function (card) {
   var glow = document.createElement("div");
   glow.className = "card-glow-effect";

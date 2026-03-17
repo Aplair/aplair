@@ -1,4 +1,4 @@
-﻿:root {
+:root {
     --bg: #050a0a;
     --bg2: #071010;
     --surface: #0b1a1a;
@@ -36,7 +36,6 @@ body::after {
     pointer-events: none;
     z-index: 9999;
     transform: translateZ(0);
-    will-change: opacity;
 }
 
 body {
@@ -289,6 +288,7 @@ body.ar .stat-card {
     border-radius: 50%;
     box-shadow: 0 0 10px #00ff88;
     animation: pulse 2s infinite;
+    will-change: transform, opacity;
 }
 
 @keyframes pulse {
@@ -1099,6 +1099,7 @@ body.ar .viewers-count {
     border-radius: 50%;
     box-shadow: 0 0 10px rgba(0, 229, 204, 0.5);
     animation: vPulse 1.5s infinite alternate;
+    will-change: transform, opacity;
 }
 
 @keyframes vPulse {
@@ -2050,11 +2051,13 @@ body.ar .btn-booknow:hover svg:last-child {
 .icon-drone .propeller {
     transform-origin: center;
     animation: spin 0.4s linear infinite;
+    will-change: transform;
 }
 
 .icon-drone .propeller2 {
     transform-origin: center;
     animation: spin 0.4s linear infinite reverse;
+    will-change: transform;
 }
 
 @keyframes spin {
@@ -2069,6 +2072,7 @@ body.ar .btn-booknow:hover svg:last-child {
 
 .icon-drone svg {
     animation: droneFloat 3s ease-in-out infinite;
+    will-change: transform;
 }
 
 @keyframes droneFloat {
@@ -2146,6 +2150,7 @@ body.ar .btn-booknow:hover svg:last-child {
 
 .icon-satellite svg {
     animation: satFloat 4s ease-in-out infinite;
+    will-change: transform;
 }
 
 @keyframes satFloat {
@@ -2199,6 +2204,7 @@ body.ar .btn-booknow:hover svg:last-child {
     animation: waveFloat 3.5s ease-in-out infinite;
     width: 54px;
     height: 54px;
+    will-change: transform;
 }
 
 .icon-mic {
@@ -2225,6 +2231,7 @@ body.ar .btn-booknow:hover svg:last-child {
 
 .icon-mic .b1 {
     animation: barAnim 0.9s ease-in-out infinite 0s;
+    will-change: transform;
 }
 
 .icon-mic .b2 {
@@ -2285,6 +2292,7 @@ body.ar .btn-booknow:hover svg:last-child {
 
 .icon-ai svg {
     animation: aiFloat 3.5s ease-in-out infinite;
+    will-change: transform;
 }
 
 @keyframes aiFloat {
@@ -2316,6 +2324,7 @@ body.ar .btn-booknow:hover svg:last-child {
 
 .icon-ai .scanline {
     animation: aiScan 2.2s ease-in-out infinite;
+    will-change: transform;
 }
 
 @keyframes aiScan {
@@ -3861,10 +3870,10 @@ body.ar .success-title .accent {
     position: fixed;
     top: 0;
     left: 0;
-    transform: translate(-50%, -50%);
     border-radius: 50%;
     pointer-events: none;
     z-index: 99999;
+    will-change: transform;
 }
 
 .cursor-dot {
@@ -3879,7 +3888,7 @@ body.ar .success-title .accent {
     width: 44px;
     height: 44px;
     border: 1px solid rgba(0, 229, 204, 0.6);
-    transition: left 0.1s ease-out, top 0.1s ease-out, width 0.4s cubic-bezier(0.25, 1, 0.5, 1), height 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.4s, border-color 0.4s;
+    transition: transform 0.08s ease-out, width 0.4s cubic-bezier(0.25, 1, 0.5, 1), height 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.4s, border-color 0.4s;
 }
 
 .cursor-dot.hover {
@@ -3891,8 +3900,6 @@ body.ar .success-title .accent {
     height: 70px;
     background-color: rgba(0, 229, 204, 0.1);
     border-color: rgba(0, 229, 204, 0.2);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
 }
 
 @media(max-width:900px) {
