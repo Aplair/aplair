@@ -17,9 +17,12 @@ function showToast(message, type) {
   }, 3200);
 }
 document.addEventListener("DOMContentLoaded", function () {
-  document.getElementById('successClose').addEventListener('click', function () {
-    document.getElementById('successOverlay').classList.remove('active');
-  });
+  const successClose = document.getElementById('successClose');
+  if (successClose) {
+    successClose.addEventListener('click', function () {
+      document.getElementById('successOverlay').classList.remove('active');
+    });
+  }
   var currentLang = window._initialLang || "en";
   var currentBasePrice = 0;
   function setLang(lang) {
@@ -29,8 +32,12 @@ document.addEventListener("DOMContentLoaded", function () {
     document.documentElement.lang = lang;
     document.documentElement.dir = isAr ? "rtl" : "ltr";
     document.body.classList.toggle("ar", isAr);
-    document.getElementById("btn-en").classList.toggle("active", !isAr);
-    document.getElementById("btn-ar").classList.toggle("active", isAr);
+    
+    var enBtn = document.getElementById("btn-en");
+    var arBtn = document.getElementById("btn-ar");
+    if (enBtn) enBtn.classList.toggle("active", !isAr);
+    if (arBtn) arBtn.classList.toggle("active", isAr);
+
     document.querySelectorAll("[data-en]").forEach(function (el) {
       el.textContent = isAr ? el.dataset.ar : el.dataset.en;
     });
@@ -44,12 +51,13 @@ document.addEventListener("DOMContentLoaded", function () {
       renderContactCountryOptions(countries);
     }
     var activeBtn = document.querySelector(".btn-open-booking.last-clicked");
-    if (activeBtn) {
-      document.getElementById("modalPackageName").textContent = isAr ? activeBtn.dataset.packageAr : activeBtn.dataset.packageEn;
+    var modalPkg = document.getElementById("modalPackageName");
+    if (activeBtn && modalPkg) {
+      modalPkg.textContent = isAr ? activeBtn.dataset.packageAr : activeBtn.dataset.packageEn;
     }
     const contactPackageSelect = document.getElementById("contactPackage");
     const contactPackageSelected = document.getElementById("contactPackageSelected");
-    if (contactPackageSelect && contactPackageSelect.value) {
+    if (contactPackageSelect && contactPackageSelect.value && contactPackageSelected) {
       const selectedOption = document.querySelector(`#contactPackageOptions .custom-dropdown-option[data-value="${contactPackageSelect.value}"]`);
       if (selectedOption) {
         contactPackageSelected.textContent = isAr ? selectedOption.dataset.ar : selectedOption.dataset.en;
@@ -59,11 +67,19 @@ document.addEventListener("DOMContentLoaded", function () {
       el.style.display = el.dataset.langContent === lang ? "block" : "none";
     });
   }
+  window.setLang = setLang;
   setLang(currentLang);
-  document.getElementById("btn-en").addEventListener("click", function () { setLang("en"); });
-  document.getElementById("btn-ar").addEventListener("click", function () { setLang("ar"); });
-  document.getElementById("btn-hire").addEventListener("click", function () {
-    document.getElementById("pricing").scrollIntoView({ behavior: "smooth" });
+  window.addEventListener('load', function() {
+    setLang(currentLang);
+  });
+  const enBtn = document.getElementById("btn-en");
+  const arBtn = document.getElementById("btn-ar");
+  if (enBtn) enBtn.addEventListener("click", function () { setLang("en"); });
+  if (arBtn) arBtn.addEventListener("click", function () { setLang("ar"); });
+  const hireBtn = document.getElementById("btn-hire");
+  if (hireBtn) hireBtn.addEventListener("click", function () {
+    const pricing = document.getElementById("pricing");
+    if (pricing) pricing.scrollIntoView({ behavior: "smooth" });
   });
   const modal = document.getElementById("bookingModal");
   const openBtns = document.querySelectorAll(".btn-open-booking");
@@ -119,10 +135,12 @@ document.addEventListener("DOMContentLoaded", function () {
       document.body.style.overflow = "hidden";
     });
   });
-  closeBtn.addEventListener("click", () => {
-    modal.classList.remove("active");
-    document.body.style.overflow = "";
-  });
+  if (closeBtn) {
+    closeBtn.addEventListener("click", () => {
+      modal.classList.remove("active");
+      document.body.style.overflow = "";
+    });
+  }
   addonChecks.forEach(check => {
     check.addEventListener("change", updatePrice);
   });
@@ -584,9 +602,13 @@ function ensureCountryRendered() {
   _countryRendered = true;
   renderCountryOptions(countries);
 }
-document.getElementById('countrySelected').dataset.name = 'Egypt';
-document.getElementById('selectedFlag').textContent = '🇪🇬';
-document.getElementById('selectedFlag').style.fontSize = '20px';
+var cs = document.getElementById('countrySelected');
+if (cs) cs.dataset.name = 'Egypt';
+var sf = document.getElementById('selectedFlag');
+if (sf) {
+  sf.textContent = '🇪🇬';
+  sf.style.fontSize = '20px';
+}
 function renderContactCountryOptions(list) {
   const container = document.getElementById('contactCountryOptions');
   container.innerHTML = '';
@@ -631,9 +653,13 @@ function ensureContactCountryRendered() {
   _contactCountryRendered = true;
   renderContactCountryOptions(countries);
 }
-document.getElementById('contactCountrySelected').dataset.name = 'Egypt';
-document.getElementById('contactSelectedFlag').textContent = '🇪🇬';
-document.getElementById('contactSelectedFlag').style.fontSize = '20px';
+var ccs = document.getElementById('contactCountrySelected');
+if (ccs) ccs.dataset.name = 'Egypt';
+var csf = document.getElementById('contactSelectedFlag');
+if (csf) {
+  csf.textContent = '🇪🇬';
+  csf.style.fontSize = '20px';
+}
 var revealTarget = document.querySelectorAll(".reveal-up");
 var revealObs = new IntersectionObserver(function (entries, observer) {
   entries.forEach(function (entry) {
@@ -1075,12 +1101,16 @@ document.querySelectorAll('.service-card').forEach(function (card) {
     navLinks.classList.toggle('active');
     document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
   }
-  burger.addEventListener('click', toggleMenu);
-  links.forEach(link => {
-    link.addEventListener('click', () => {
-      if (navLinks.classList.contains('active')) {
-        toggleMenu();
-      }
+  if (burger) {
+    burger.addEventListener('click', toggleMenu);
+  }
+  if (links) {
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        if (navLinks && navLinks.classList.contains('active')) {
+          toggleMenu();
+        }
+      });
     });
-  });
+  }
 })();

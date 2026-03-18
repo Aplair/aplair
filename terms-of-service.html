@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://grainy-gradients.vercel.app">
 
     <!-- CSS loaded with cache-busting version -->
-    <link rel="stylesheet" href="assets/css/style.min.css?v=2.2">
+    <link rel="stylesheet" href="assets/css/style.min.css?v=2.3">
 
     <!-- Critical fonts -->
     <link
@@ -31,8 +31,8 @@
         })();
     </script>
     <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="48x48" href="https://aplair.github.io/Aplair/favicon.png">
-    <link rel="apple-touch-icon" href="https://aplair.github.io/Aplair/favicon.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="https://aplair.github.io/aplair/favicon.png">
+    <link rel="apple-touch-icon" href="https://aplair.github.io/aplair/favicon.png">
 </head>
 
 <body class="ar">
@@ -53,8 +53,11 @@
             <li><a href="index.html#contact" data-en="Contact" data-ar="تواصل">Contact</a></li>
         </ul>
         <div class="nav-right">
+            <div class="menu-toggle" id="menu-toggle" role="button" aria-label="Toggle Menu" tabindex="0">
+                <span></span><span></span><span></span>
+            </div>
             <div class="lang-toggle">
-                <button class="lang-btn" id="btn-en">EN</button>
+                <button class="lang-btn active" id="btn-en">EN</button>
                 <button class="lang-btn" id="btn-ar">AR</button>
             </div>
             <a href="index.html#pricing" class="btn-hire" data-en="BOOK NOW" data-ar="احجز الآن">BOOK NOW</a>
@@ -70,11 +73,25 @@
                     <p>Welcome to Aplair. By using our services, you agree to the following terms and conditions:</p>
                     <h2>1. Services</h2>
                     <p>Aplair provides cinematic real estate video editing and related digital media services.</p>
+
                     <h2>2. Payment Terms</h2>
                     <ul>
                         <li>All services require <strong>100% upfront payment</strong> before work begins.</li>
                         <li>No project will start without full payment.</li>
                     </ul>
+
+                    <h2>3. Project Timeline</h2>
+                    <p>Delivery times range from 3 to 10 business days based on the selected package. Final delivery
+                        dates are agreed upon before payment.</p>
+
+                    <h2>4. Revisions</h2>
+                    <p>Each package includes a set number of free revisions. Additional revisions requested after the
+                        limit is reached are subject to extra fees ($15 per revision).</p>
+
+                    <h2>5. Client Obligations</h2>
+                    <p>Clients are responsible for providing all necessary raw footage and brand assets. Delays in
+                        providing materials will result in shifted delivery dates.</p>
+
                     <h2>6. Intellectual Property & Portfolio Usage</h2>
                     <ul>
                         <li>Final videos become the property of the client after full payment.</li>
@@ -82,6 +99,7 @@
                         <li>If a client does not want their project used in the portfolio, an <strong>additional
                                 fee</strong> applies.</li>
                     </ul>
+
                     <h2>7. Refunds</h2>
                     <p>Refunds are governed by our <a href="refund-policy.html">Refund Policy</a>.</p>
                 </div>
@@ -94,11 +112,25 @@
                     <p>مرحبًا بكم في Aplair. باستخدام خدماتنا، فإنك توافق على الشروط والأحكام التالية:</p>
                     <h2>1. الخدمات</h2>
                     <p>تقدم Aplair خدمات مونتاج فيديو عقاري سينمائي وخدمات رقمية ذات صلة.</p>
+
                     <h2>2. شروط الدفع</h2>
                     <ul>
                         <li>جميع الخدمات تتطلب <strong>دفع كامل 100%</strong> قبل بدء العمل.</li>
                         <li>لن يبدأ أي مشروع بدون دفع كامل.</li>
                     </ul>
+
+                    <h2>3. الجدول الزمني</h2>
+                    <p>تتراوح أوقات التسليم من 3 إلى 10 أيام عمل حسب الباقة المختارة. يتم الاتفاق على مواعيد التسليم
+                        النهائية قبل الدفع.</p>
+
+                    <h2>4. التعديلات</h2>
+                    <p>تتضمن كل باقة عدداً محدداً من التعديلات المجانية. التعديلات الإضافية المطلوبة بعد استنفاد الحد
+                        المسموح به تخضع لرسوم إضافية (15$ لكل تعديل).</p>
+
+                    <h2>5. التزامات العميل</h2>
+                    <p>العميل مسؤول عن تقديم جميع اللقطات الخام وعناصر العلامة التجارية اللازمة. التأخير في تقديم هذه
+                        المواد سيؤدي إلى تأخير مواعيد التسليم.</p>
+
                     <h2>6. حقوق الملكية واستخدام البورتفوليو</h2>
                     <ul>
                         <li>تصبح الفيديوهات النهائية ملكًا للعميل بعد دفع كامل المبلغ.</li>
@@ -106,6 +138,7 @@
                         <li>إذا كان العميل لا يرغب في استخدام مشروعه في البورتفوليو، يتم تطبيق <strong>رسوم
                                 إضافية</strong>.</li>
                     </ul>
+
                     <h2>7. الاسترجاع</h2>
                     <p>تخضع الاسترجاعات لـ <a href="refund-policy.html">سياسة استرجاع الأموال</a>.</p>
                 </div>
@@ -114,16 +147,40 @@
     </main>
 
     <footer>
-        <div class="footer-logo"><img src="assets/images/footer-logo.png" alt="Aplair" width="40" height="40"></div>
-        <div class="footer-links">
-            <a href="refund-policy.html" data-en="Refund Policy" data-ar="سياسة الاسترجاع">Refund Policy</a>
-            <a href="terms-of-service.html" data-en="Terms of Service" data-ar="شروط الاستخدام">Terms of Service</a>
+        <div class="footer-logo"><img src="assets/images/footer-logo.png"
+                alt="Aplair - Agency for Real Estate Video Montage | أفضل مونتاج عقاري" loading="lazy" width="40"
+                height="40"></div>
+        <div class="footer-links"
+            style="margin-top: 15px; margin-bottom: 5px; display: flex; gap: 20px; justify-content: center;">
+            <a href="refund-policy.html"
+                style="color: var(--text-muted); text-decoration: none; font-size: 12px; transition: color 0.3s;"
+                onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--text-muted)'"
+                data-en="Refund Policy" data-ar="سياسة الاسترجاع">Refund Policy</a>
+            <a href="terms-of-service.html"
+                style="color: var(--text-muted); text-decoration: none; font-size: 12px; transition: color 0.3s;"
+                onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--text-muted)'"
+                data-en="Terms of Service" data-ar="شروط الاستخدام">Terms of Service</a>
         </div>
         <div class="footer-copy" data-en="© 2026 Aplair. All rights reserved."
             data-ar="© 2026 Aplair. جميع الحقوق محفوظة."> © 2026 Aplair. All rights reserved.</div>
     </footer>
 
-    <script defer src="assets/js/script.min.js?v=2.2"></script>
+    <script defer src="assets/js/script.min.js?v=2.3"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', function () {
+            if (window.setLang) {
+                var lang = localStorage.getItem('aplair_lang') || (navigator.language.startsWith('ar') ? 'ar' : 'en');
+                window.setLang(lang);
+            }
+        });
+        window.addEventListener('load', function () {
+            if (window.setLang) {
+                var lang = localStorage.getItem('aplair_lang') || (navigator.language.startsWith('ar') ? 'ar' : 'en');
+                window.setLang(lang);
+            }
+        });
+    </script>
+
 </body>
 
 </html>

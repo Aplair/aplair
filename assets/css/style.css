@@ -4948,9 +4948,6 @@ body.ar .btn-pricing {
     border-radius: 4px;
     position: relative;
     overflow: hidden;
-    animation: revealUp 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    opacity: 0;
-    transform: translateY(30px);
 }
 
 .policy-card::before {
@@ -5078,4 +5075,16 @@ body.ar .policy-content li::before {
     .policy-wrapper {
         padding-top: 100px;
     }
+}
+
+@keyframes revealUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Base lang content hiding - will be overridden by JS */
+[data-lang-content] {
+    display: none;
 }

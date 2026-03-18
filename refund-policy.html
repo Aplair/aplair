@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://grainy-gradients.vercel.app">
 
     <!-- CSS loaded with cache-busting version -->
-    <link rel="stylesheet" href="assets/css/style.min.css?v=2.2">
+    <link rel="stylesheet" href="assets/css/style.min.css?v=2.3">
 
     <!-- Critical fonts -->
     <link
@@ -31,8 +31,8 @@
         })();
     </script>
     <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="48x48" href="https://aplair.github.io/Aplair/favicon.png">
-    <link rel="apple-touch-icon" href="https://aplair.github.io/Aplair/favicon.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="https://aplair.github.io/aplair/favicon.png">
+    <link rel="apple-touch-icon" href="https://aplair.github.io/aplair/favicon.png">
 </head>
 
 <body class="ar">
@@ -53,8 +53,11 @@
             <li><a href="index.html#contact" data-en="Contact" data-ar="تواصل">Contact</a></li>
         </ul>
         <div class="nav-right">
+            <div class="menu-toggle" id="menu-toggle" role="button" aria-label="Toggle Menu" tabindex="0">
+                <span></span><span></span><span></span>
+            </div>
             <div class="lang-toggle">
-                <button class="lang-btn" id="btn-en">EN</button>
+                <button class="lang-btn active" id="btn-en">EN</button>
                 <button class="lang-btn" id="btn-ar">AR</button>
             </div>
             <a href="index.html#pricing" class="btn-hire" data-en="BOOK NOW" data-ar="احجز الآن">BOOK NOW</a>
@@ -119,7 +122,8 @@
                         <li><strong>بعد تسليم النسخة الأولى:</strong> يمكن منح استرجاع جزئي محدود <strong>40%</strong>
                             من المبلغ.</li>
                         <li><strong>بعد التسليم النهائي:</strong> بمجرد إجراء التعديلات أو تسليم الإصدار النهائي،
-                            <strong>لن يتم إصدار أي مبالغ مستردة</strong>.</li>
+                            <strong>لن يتم إصدار أي مبالغ مستردة</strong>.
+                        </li>
                     </ul>
 
                     <h2>3. طريقة الطلب</h2>
@@ -136,16 +140,40 @@
     </main>
 
     <footer>
-        <div class="footer-logo"><img src="assets/images/footer-logo.png" alt="Aplair" width="40" height="40"></div>
-        <div class="footer-links">
-            <a href="refund-policy.html" data-en="Refund Policy" data-ar="سياسة الاسترجاع">Refund Policy</a>
-            <a href="terms-of-service.html" data-en="Terms of Service" data-ar="شروط الاستخدام">Terms of Service</a>
+        <div class="footer-logo"><img src="assets/images/footer-logo.png"
+                alt="Aplair - Agency for Real Estate Video Montage | أفضل مونتاج عقاري" loading="lazy" width="40"
+                height="40"></div>
+        <div class="footer-links"
+            style="margin-top: 15px; margin-bottom: 5px; display: flex; gap: 20px; justify-content: center;">
+            <a href="refund-policy.html"
+                style="color: var(--text-muted); text-decoration: none; font-size: 12px; transition: color 0.3s;"
+                onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--text-muted)'"
+                data-en="Refund Policy" data-ar="سياسة الاسترجاع">Refund Policy</a>
+            <a href="terms-of-service.html"
+                style="color: var(--text-muted); text-decoration: none; font-size: 12px; transition: color 0.3s;"
+                onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--text-muted)'"
+                data-en="Terms of Service" data-ar="شروط الاستخدام">Terms of Service</a>
         </div>
         <div class="footer-copy" data-en="© 2026 Aplair. All rights reserved."
             data-ar="© 2026 Aplair. جميع الحقوق محفوظة."> © 2026 Aplair. All rights reserved.</div>
     </footer>
 
-    <script defer src="assets/js/script.min.js?v=2.2"></script>
+    <script defer src="assets/js/script.min.js?v=2.3"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', function () {
+            if (window.setLang) {
+                var lang = localStorage.getItem('aplair_lang') || (navigator.language.startsWith('ar') ? 'ar' : 'en');
+                window.setLang(lang);
+            }
+        });
+        window.addEventListener('load', function () {
+            if (window.setLang) {
+                var lang = localStorage.getItem('aplair_lang') || (navigator.language.startsWith('ar') ? 'ar' : 'en');
+                window.setLang(lang);
+            }
+        });
+    </script>
+
 </body>
 
 </html>

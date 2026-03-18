@@ -1,11 +1,11 @@
-const CACHE_NAME = 'aplair-cache-v2.2';
+const CACHE_NAME = 'aplair-cache-v2.3';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
   '/refund-policy.html',
   '/terms-of-service.html',
-  '/assets/css/style.min.css?v=2.2',
-  '/assets/js/script.min.js?v=2.2',
+  '/assets/css/style.min.css?v=2.3',
+  '/assets/js/script.min.js?v=2.3',
   '/assets/images/nav-logo.png',
   '/assets/images/about-logo.png',
   '/assets/images/footer-logo.png',
