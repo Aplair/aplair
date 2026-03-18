@@ -1,55 +1,25 @@
-# 🎬 Sell Your Properties 85% Faster with Cinematic Video Editing
+# Aplair Project
 
-Turn boring listings into high-converting cinematic experiences that attract serious buyers & investors.
+Cinematic real estate video editing and digital media services.
 
----
+## Project Structure
 
-## 🚨 The Problem
-Most real estate listings:
-- Look basic ❌
-- Get ignored ❌
-- Take too long to sell ❌
+- `index.html`: The main landing page including the booking modal and contact form.
+- `refund-policy.html`: Detailed refund policy for services.
+- `terms-of-service.html`: Terms and conditions.
+- `assets/`:
+    - `css/`: Styling files (`style.css` and its minified version).
+    - `js/`: Application logic (`script.js` and its minified version).
+    - `images/`: Logo and other graphical assets.
+- `sitemap.xml`: SEO sitemap for the application.
+- `robots.txt`: Search engine crawling instructions.
 
----
+## Development
 
-## 💡 The Solution
-Aplair creates **cinematic real estate videos** using:
-- Drone footage 🚁
-- Satellite visuals 🌍
-- Story-driven editing 🎬
+- **Scripts**: All form submissions are handled via `script.js` which connects to the Google Apps Script backend.
+- **Styles**: Custom variables and organization are maintained in `style.css`.
+- **Minification**: For production, ensure both `.min.js` and `.min.css` are updated.
 
----
+## Deployment
 
-## 📈 What You Get
-✔ Higher perceived property value  
-✔ More serious buyers  
-✔ Faster closing deals  
-
----
-
-## 🔥 Real Impact
-- ⏱ Sell up to 85% faster  
-- 💰 Increase property price perception  
-- 📊 Boost engagement dramatically  
-
----
-
-## 🎥 Live Demo
-👉 https://aplair.github.io/aplair/
-
----
-
-## 💼 Who It's For
-- Real estate agencies  
-- Property developers  
-- Luxury property sellers  
-
----
-
-## 📩 Work With Us
-👉 https://aplair.github.io/aplair/
-
----
-
-## 🔑 Keywords
-real estate video editing, cinematic property video, real estate marketing, drone real estate video
+The project is designed to be hosted on static platforms like GitHub Pages. Ensure URLs in `sitemap.xml` are correct after any domain changes.

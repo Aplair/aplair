@@ -79,7 +79,11 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       selectedLabels = ["AI Voiceover", "AI Architectural Visualization"];
     }
-    const total = currentBasePrice + addonsTotal;
+    let total = currentBasePrice + addonsTotal;
+    const noPortfolio = document.getElementById("noPortfolio");
+    if (noPortfolio && noPortfolio.checked) {
+      total += Math.round(total * 0.4);
+    }
     document.getElementById("summaryBasePrice").textContent = "$" + currentBasePrice;
     document.getElementById("summaryAddonsPrice").textContent = "$" + addonsTotal;
     document.getElementById("summaryTotalPrice").textContent = "$" + total;
@@ -104,6 +108,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("premiumMessage").style.display = "none";
       }
       addonChecks.forEach(c => c.checked = false);
+      if (noPortfolioCheck) noPortfolioCheck.checked = false;
       updatePrice();
       modal.classList.add("active");
       document.body.style.overflow = "hidden";
@@ -116,15 +121,21 @@ document.addEventListener("DOMContentLoaded", function () {
   addonChecks.forEach(check => {
     check.addEventListener("change", updatePrice);
   });
-  document.getElementById("submitBooking").addEventListener("click", function () {
-    const { total, addons } = updatePrice();
+  const noPortfolioCheck = document.getElementById("noPortfolio");
+  if (noPortfolioCheck) {
+    noPortfolioCheck.addEventListener("change", updatePrice);
+  }
+  const submitBookingBtn = document.getElementById("submitBooking");
+  if (submitBookingBtn) {
+    submitBookingBtn.addEventListener("click", function () {
+      const { total, addons } = updatePrice();
     const activeBtn = document.querySelector(".btn-open-booking.last-clicked");
     const nameVal = document.getElementById("bookingName").value.trim();
     const emailVal = document.getElementById("bookingEmail").value.trim();
     const waVal = document.getElementById("bookingWA").value.trim();
     const countryCode = document.getElementById("bookingCountryCode").value;
     const briefVal = document.getElementById("bookingBrief").value.trim();
-    ['bookingName', 'bookingEmail', 'bookingWA', 'bookingBrief'].forEach(function (id) {
+    ['bookingName', 'bookingEmail', 'bookingWA', 'bookingBrief', 'agreePolicies'].forEach(function (id) {
       var el = document.getElementById(id);
       if (el) { el.classList.remove('field-error'); el.parentElement.classList.remove('field-error'); }
     });
@@ -149,6 +160,13 @@ document.addEventListener("DOMContentLoaded", function () {
       showToast(currentLang === "ar" ? "⚠️ يرجى ملء جميع الحقول المطلوبة" : "⚠️ Please fill in all required fields", "error");
       return;
     }
+    const agreePolicies = document.getElementById("agreePolicies");
+    if (agreePolicies && !agreePolicies.checked) {
+      showToast(currentLang === "ar" ? "⚠️ يجب الموافقة على سياسة الاسترجاع وشروط الاستخدام" : "⚠️ You must agree to the Refund Policy and Terms of Service", "error");
+      agreePolicies.parentElement.classList.add('field-error');
+      agreePolicies.focus();
+      return;
+    }
     if (waVal.length < 7) {
       showToast(currentLang === "ar" ? "رقم الواتساب يجب أن يكون 7 أرقام على الأقل" : "WhatsApp number must be at least 7 digits", "error");
       document.getElementById("bookingWA").focus();
@@ -171,10 +189,12 @@ document.addEventListener("DOMContentLoaded", function () {
       projectDetails: briefVal,
       videoDetails: briefVal,
       reference: document.getElementById('bookingReference').value.trim() || 'None',
+      portfolioUsage: (document.getElementById("noPortfolio") && document.getElementById("noPortfolio").checked) ? "HIDE (Extra Fee Apply)" : "Allowed",
+      policyAgreed: (document.getElementById("agreePolicies") && document.getElementById("agreePolicies").checked) ? "Agreed" : "No",
       language: currentLang,
       timestamp: new Date().toISOString()
     };
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbw7K3_PHbnzA8rmOdSx9slsabh2n-E4_eopgAVsI_SByPvPt4FRiVqTJ8comYUp1Y8MGA/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwBmYOubj6GYvc9i2MCfV9A9uPNNoRi6jds-IN_vKdRlLMytkCB8gF55I1uslOrvcQ6LQ/exec';
     const submitBtn = this;
     const btnText = submitBtn.querySelector('span');
     btnText.textContent = currentLang === 'ar' ? 'جاري الإرسال...' : 'SENDING...';
@@ -186,33 +206,38 @@ document.addEventListener("DOMContentLoaded", function () {
     iframe.style.display = 'none';
     iframe.src = scriptURL + '?' + params;
     document.body.appendChild(iframe);
-    setTimeout(function () {
-      document.body.removeChild(iframe);
-      modal.classList.remove('active');
+      setTimeout(function () {
+        document.body.removeChild(iframe);
+        const successTotal = document.getElementById('successTotalValue');
+        if (successTotal) { successTotal.textContent = data.totalPrice; }
+        modal.classList.remove('active');
       document.body.style.overflow = '';
       document.getElementById('successOverlay').classList.add('active');
       btnText.textContent = currentLang === 'ar' ? (btnText.dataset.ar || 'تأكيد الحجز →') : (btnText.dataset.en || 'SUBMIT BOOKING →');
       submitBtn.style.pointerEvents = 'all';
       submitBtn.style.opacity = '1';
     }, 3000);
-  });
+    });
+  }
   const contactPackageSelect = document.getElementById("contactPackage");
   const contactPackageWrap = document.getElementById("contactPackageWrap");
   const contactPackageSelected = document.getElementById("contactPackageSelected");
-  const contactPackageOptions = document.querySelectorAll("#contactPackageOptions .custom-dropdown-option");
   const contactAddonsContainer = document.getElementById("contactAddonsContainer");
   const contactAddonsSection = document.getElementById("contactAddonsSection");
   const contactPremiumMessage = document.getElementById("contactPremiumMessage");
   const contactAddonChecks = document.querySelectorAll(".contact-addon-check");
+  const contactPackageOptions = document.querySelectorAll("#contactPackageOptions .custom-dropdown-option");
   let contactCurrentBasePrice = 0;
-  contactPackageSelected.addEventListener("click", function (e) {
+
+  if (contactPackageSelected && contactPackageWrap && contactPackageSelect && contactAddonsContainer && contactAddonsSection && contactPremiumMessage) {
+    contactPackageSelected.addEventListener("click", function (e) {
     e.stopPropagation();
     const isOpen = contactPackageWrap.classList.toggle("open");
     const parentGroup = contactPackageWrap.closest(".form-group");
     if (parentGroup) parentGroup.classList.toggle("pkg-group-open", isOpen);
   });
   document.addEventListener("click", function (e) {
-    if (!contactPackageWrap.contains(e.target)) {
+    if (contactPackageWrap && !contactPackageWrap.contains(e.target)) {
       contactPackageWrap.classList.remove("open");
       const parentGroup = contactPackageWrap.closest(".form-group");
       if (parentGroup) parentGroup.classList.remove("pkg-group-open");
@@ -233,7 +258,11 @@ document.addEventListener("DOMContentLoaded", function () {
     } else if (contactPackageSelect.value === "Premium real estate Bundle") {
       selectedLabels = ["AI Voiceover", "AI Architectural Visualization"];
     }
-    const total = contactCurrentBasePrice + addonsTotal;
+    let total = contactCurrentBasePrice + addonsTotal;
+    const contactNoPortfolio = document.getElementById("contactNoPortfolio");
+    if (contactNoPortfolio && contactNoPortfolio.checked) {
+      total += Math.round(total * 0.4);
+    }
     document.getElementById("contactSummaryBasePrice").textContent = "$" + contactCurrentBasePrice;
     document.getElementById("contactSummaryAddonsPrice").textContent = "$" + addonsTotal;
     document.getElementById("contactSummaryTotalPrice").textContent = "$" + total;
@@ -269,13 +298,23 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       }
       contactAddonChecks.forEach(c => c.checked = false);
+      const contactNoPortfolio = document.getElementById("contactNoPortfolio");
+      if (contactNoPortfolio) contactNoPortfolio.checked = false;
+      const contactAgreePolicies = document.getElementById("contactAgreePolicies");
+      if (contactAgreePolicies) {
+        contactAgreePolicies.checked = false;
+        contactAgreePolicies.parentElement.classList.remove('field-error');
+      }
       updateContactPrice();
     });
   });
-  if (contactAddonChecks.length > 0) {
     contactAddonChecks.forEach(check => {
       check.addEventListener("change", updateContactPrice);
     });
+    const contactNoPortfolioCheck = document.getElementById("contactNoPortfolio");
+    if (contactNoPortfolioCheck) {
+      contactNoPortfolioCheck.addEventListener("change", updateContactPrice);
+    }
   }
   const submitContactBtn = document.getElementById("submitContact");
   if (submitContactBtn) {
@@ -295,7 +334,7 @@ document.addEventListener("DOMContentLoaded", function () {
         addonsStr = priceInfo.addons;
         totalPriceStr = priceInfo.total;
       }
-      ['contactName', 'contactEmail', 'contactWA', 'contactBrief', 'contactPackageWrap'].forEach(function (id) {
+      ['contactName', 'contactEmail', 'contactWA', 'contactBrief', 'contactPackageWrap', 'contactAgreePolicies'].forEach(function (id) {
         var el = document.getElementById(id);
         if (el) { el.classList.remove('field-error'); el.parentElement.classList.remove('field-error'); }
       });
@@ -303,6 +342,13 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!pkgValue) {
         document.getElementById('contactPackageWrap').parentElement.classList.add('field-error');
         hasError = true;
+      }
+      const contactAgreePolicies = document.getElementById("contactAgreePolicies");
+      if (contactAgreePolicies && !contactAgreePolicies.checked) {
+        showToast(currentLang === "ar" ? "⚠️ يجب الموافقة على سياسة الاسترجاع وشروط الاستخدام" : "⚠️ You must agree to the Refund Policy and Terms of Service", "error");
+        contactAgreePolicies.parentElement.classList.add('field-error');
+        contactAgreePolicies.focus();
+        return;
       }
       if (!nameVal) {
         document.getElementById('contactName').classList.add('field-error');
@@ -346,10 +392,12 @@ document.addEventListener("DOMContentLoaded", function () {
         projectDetails: briefVal,
         videoDetails: briefVal,
         reference: refVal,
+        portfolioUsage: (document.getElementById("contactNoPortfolio") && document.getElementById("contactNoPortfolio").checked) ? "HIDE (Extra Fee Apply)" : "Allowed",
+        policyAgreed: (document.getElementById("contactAgreePolicies") && document.getElementById("contactAgreePolicies").checked) ? "Agreed" : "No",
         language: currentLang,
         timestamp: new Date().toISOString()
       };
-      const scriptURL = 'https://script.google.com/macros/s/AKfycbw7K3_PHbnzA8rmOdSx9slsabh2n-E4_eopgAVsI_SByPvPt4FRiVqTJ8comYUp1Y8MGA/exec';
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbwBmYOubj6GYvc9i2MCfV9A9uPNNoRi6jds-IN_vKdRlLMytkCB8gF55I1uslOrvcQ6LQ/exec';
       const submitBtn = this;
       const btnText = submitBtn.querySelector('span');
       btnText.textContent = currentLang === 'ar' ? 'جاري الإرسال...' : 'SENDING...';
@@ -363,6 +411,8 @@ document.addEventListener("DOMContentLoaded", function () {
       document.body.appendChild(iframe);
       setTimeout(function () {
         document.body.removeChild(iframe);
+        const successTotal = document.getElementById('successTotalValue');
+        if (successTotal) { successTotal.textContent = data.totalPrice; }
         document.getElementById('successOverlay').classList.add('active');
         btnText.textContent = currentLang === 'ar' ? (btnText.dataset.ar || 'تأكيد الحجز →') : (btnText.dataset.en || 'SUBMIT BOOKING →');
         submitBtn.style.pointerEvents = 'all';
@@ -378,9 +428,15 @@ document.addEventListener("DOMContentLoaded", function () {
         pkSelected.classList.remove('has-value');
         document.querySelectorAll("#contactPackageOptions .custom-dropdown-option").forEach(o => o.classList.remove("selected"));
         document.getElementById("contactAddonsContainer").style.display = "none";
-        ['contactName', 'contactEmail', 'contactWA', 'contactBrief', 'contactReference', 'contactPackageWrap'].forEach(function (id) {
+        if (document.getElementById("contactNoPortfolio")) document.getElementById("contactNoPortfolio").checked = false;
+        if (document.getElementById("contactAgreePolicies")) {
+          document.getElementById("contactAgreePolicies").checked = false;
+          document.getElementById("contactAgreePolicies").parentElement.classList.remove('field-error');
+        }
+        ['contactName', 'contactEmail', 'contactWA', 'contactBrief', 'contactReference', 'contactPackageWrap', 'contactAgreePolicies'].forEach(function (id) {
           var el = document.getElementById(id);
           if (el && el.parentElement) el.parentElement.classList.remove('filled');
+          if (el) el.classList.remove('field-error');
         });
       }, 3000);
     });

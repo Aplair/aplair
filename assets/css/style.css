@@ -3759,6 +3759,57 @@ body.ar .success-title .accent {
     animation: shakeField 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+.checkbox-item.field-error {
+    color: #ff3366 !important;
+    background: rgba(255, 51, 102, 0.05);
+    padding: 8px;
+    border-radius: 4px;
+    animation: shakeField 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    color: var(--text-dim);
+    font-size: 13px;
+    line-height: 1.4;
+    transition: all 0.3s;
+    border-radius: 4px;
+}
+
+.checkbox-item input[type="checkbox"] {
+    margin-top: 3px;
+}
+
+.success-total {
+    margin: 20px 0;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--cyan);
+    border: 1px solid rgba(0, 229, 204, 0.2);
+    padding: 15px;
+    border-radius: 4px;
+    background: rgba(0, 229, 204, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+}
+
+.success-total .total-label {
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+}
+
+.success-total .total-value {
+    font-size: 36px;
+    text-shadow: 0 0 20px rgba(0, 229, 204, 0.4);
+}
+
 @keyframes shakeField {
 
     0%,
