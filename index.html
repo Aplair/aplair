@@ -74,33 +74,44 @@
       }
     ]
     </script>
-    <!-- Preconnect to Google Fonts -->
+    <!-- Preconnect to critical origins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- CRITICAL: Preload Bebas Neue (used in h1 LCP element) to eliminate 760ms render delay -->
-    <link rel="preload" href="https://fonts.gstatic.com/s/bebasneuepro/v7/7oF_TvBO0EqKXQlzFk2QWIA.woff2" as="font"
-        type="font/woff2" crossorigin>
-    <!-- Critical fonts loaded synchronously for LCP -->
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap"
-        rel="stylesheet">
-    <!-- Decorative fonts loaded async (non-LCP) -->
+    <link rel="preconnect" href="https://grainy-gradients.vercel.app">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link rel="dns-prefetch" href="https://grainy-gradients.vercel.app">
+
+    <!-- CRITICAL: Preload background noise and preconnect to Google Fonts for speed -->
+    <link rel="preload" href="https://grainy-gradients.vercel.app/noise.svg" as="image" type="image/svg+xml">
+
+    <!-- Critical fonts loaded synchronously for LCP/CLS -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300&family=Noto+Kufi+Arabic:wght@400;700;900&display=optional"
-        rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript>
-        <link rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300&family=Noto+Kufi+Arabic:wght@400;700;900&display=optional">
-    </noscript>
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=Noto+Kufi+Arabic:wght@400;700;900&family=Cormorant+Garamond:ital,wght@1,300&display=swap"
+        rel="stylesheet">
+
     <!-- CSS loaded with cache-busting version -->
-    <link rel="preload" href="assets/css/style.min.css?v=2.1" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="assets/css/style.min.css?v=2.1">
-    </noscript>
+    <link rel="stylesheet" href="assets/css/style.min.css?v=2.2">
+
+    <!-- Inline script to apply language ASAP (Prevents CLS 0.8+) -->
+    <script>
+        (function () {
+            try {
+                var lang = localStorage.getItem('aplair_lang') || (navigator.language.startsWith('ar') ? 'ar' : 'en');
+                document.documentElement.lang = lang;
+                document.documentElement.dir = (lang === 'ar' ? 'rtl' : 'ltr');
+                if (lang === 'ar') document.documentElement.classList.add('ar');
+                window._initialLang = lang;
+            } catch (e) { }
+        })();
+    </script>
     <meta name="google-site-verification" content="enZqc8uwjteucCBKv3fSN4nPMXfHljHfhl0nGUnElN8" />
 </head>
 
-<body>
+<body class="ar">
+    <script>
+        if (window._initialLang === 'en') document.body.classList.remove('ar');
+    </script>
     <nav><a href="#" class="nav-logo" aria-label="Aplair Home Page"><img src="assets/images/nav-logo.png"
                 alt="Aplair - Professional Real Estate Video Editing | مونتاج عقاري احترافي" width="44" height="44"
                 fetchpriority="high"></a>
@@ -1191,7 +1202,8 @@
                 </div>
                 <div class="checkbox-group" style="margin: 20px 0 10px;">
                     <label class="checkbox-item">
-                        <input type="checkbox" id="contactAgreePolicies" onchange="this.parentElement.classList.remove('field-error')">
+                        <input type="checkbox" id="contactAgreePolicies"
+                            onchange="this.parentElement.classList.remove('field-error')">
                         <span
                             data-en-html='I have read and agree to the <a href="refund-policy.html" target="_blank" style="color: var(--cyan); text-decoration: underline;">Refund Policy</a>, and <a href="terms-of-service.html" target="_blank" style="color: var(--cyan); text-decoration: underline;">Terms of Service</a>.'
                             data-ar-html='لقد قرأت وأوافق على <a href="refund-policy.html" target="_blank" style="color: var(--cyan); text-decoration: underline;">سياسة استرجاع الأموال</a>، و <a href="terms-of-service.html" target="_blank" style="color: var(--cyan); text-decoration: underline;">شروط الاستخدام</a>.'>
@@ -1203,7 +1215,8 @@
                     </label>
                     <label class="checkbox-item" style="margin-top: 12px;">
                         <input type="checkbox" id="contactNoPortfolio">
-                        <span data-en="I do NOT want my project to appear in Aplair’s portfolio (40% additional fee applies)."
+                        <span
+                            data-en="I do NOT want my project to appear in Aplair’s portfolio (40% additional fee applies)."
                             data-ar="لا أرغب في ظهور مشروعي في بورتفوليو Aplair (تُطبق رسوم إضافية 40%).">
                             I do NOT want my project to appear in Aplair’s portfolio (40% additional fee applies).
                         </span>
@@ -1234,7 +1247,8 @@
                 data-ar="سنراجع مشروعك ونتواصل معك خلال 24 ساعة.">We'll review your project and get back to you within
                 24 hours. </p>
             <div class="success-total">
-                <span class="total-label" data-en="Total Amount Due" data-ar="إجمالي المبلغ المستحق">Total Amount Due</span>
+                <span class="total-label" data-en="Total Amount Due" data-ar="إجمالي المبلغ المستحق">Total Amount
+                    Due</span>
                 <span id="successTotalValue" class="total-value">$0</span>
             </div>
             <div class="modal-policy-notice" style="margin: 20px 0; justify-content: center;"><span class="live-dot"
@@ -1339,7 +1353,8 @@
                 </div>
                 <div class="checkbox-group" style="margin: 20px 0 10px;">
                     <label class="checkbox-item">
-                        <input type="checkbox" id="agreePolicies" onchange="this.parentElement.classList.remove('field-error')">
+                        <input type="checkbox" id="agreePolicies"
+                            onchange="this.parentElement.classList.remove('field-error')">
                         <span
                             data-en-html='I have read and agree to the <a href="refund-policy.html" target="_blank" style="color: var(--cyan); text-decoration: underline;">Refund Policy</a>, and <a href="terms-of-service.html" target="_blank" style="color: var(--cyan); text-decoration: underline;">Terms of Service</a>.'
                             data-ar-html='لقد قرأت وأوافق على <a href="refund-policy.html" target="_blank" style="color: var(--cyan); text-decoration: underline;">سياسة استرجاع الأموال</a>، و <a href="terms-of-service.html" target="_blank" style="color: var(--cyan); text-decoration: underline;">شروط الاستخدام</a>.'>
@@ -1351,7 +1366,8 @@
                     </label>
                     <label class="checkbox-item" style="margin-top: 12px;">
                         <input type="checkbox" id="noPortfolio">
-                        <span data-en="I do NOT want my project to appear in Aplair’s portfolio (40% additional fee applies)."
+                        <span
+                            data-en="I do NOT want my project to appear in Aplair’s portfolio (40% additional fee applies)."
                             data-ar="لا أرغب في ظهور مشروعي في بورتفوليو Aplair (تُطبق رسوم إضافية 40%).">
                             I do NOT want my project to appear in Aplair’s portfolio (40% additional fee applies).
                         </span>
@@ -1371,14 +1387,32 @@
                 alt="Aplair - Agency for Real Estate Video Montage | أفضل مونتاج عقاري" loading="lazy" width="40"
                 height="40"></div>
 
-        <div class="footer-links" style="margin-top: 15px; margin-bottom: 5px; display: flex; gap: 20px; justify-content: center;">
-            <a href="refund-policy.html" style="color: var(--text-muted); text-decoration: none; font-size: 12px; transition: color 0.3s;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--text-muted)'" data-en="Refund Policy" data-ar="سياسة الاسترجاع">Refund Policy</a>
-            <a href="terms-of-service.html" style="color: var(--text-muted); text-decoration: none; font-size: 12px; transition: color 0.3s;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--text-muted)'" data-en="Terms of Service" data-ar="شروط الاستخدام">Terms of Service</a>
+        <div class="footer-links"
+            style="margin-top: 15px; margin-bottom: 5px; display: flex; gap: 20px; justify-content: center;">
+            <a href="refund-policy.html"
+                style="color: var(--text-muted); text-decoration: none; font-size: 12px; transition: color 0.3s;"
+                onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--text-muted)'"
+                data-en="Refund Policy" data-ar="سياسة الاسترجاع">Refund Policy</a>
+            <a href="terms-of-service.html"
+                style="color: var(--text-muted); text-decoration: none; font-size: 12px; transition: color 0.3s;"
+                onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--text-muted)'"
+                data-en="Terms of Service" data-ar="شروط الاستخدام">Terms of Service</a>
         </div>
         <div class="footer-copy" data-en="© 2026 Aplair. All rights reserved."
             data-ar="© 2026 Aplair. جميع الحقوق محفوظة."> © 2026 Aplair. All rights reserved.</div>
     </footer>
-    <script defer src="assets/js/script.min.js?v=2.1"></script>
+    <script defer src="assets/js/script.min.js?v=2.2"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').then(reg => {
+                    console.log('SW Registered');
+                }).catch(err => {
+                    console.log('SW Registration failed', err);
+                });
+            });
+        }
+    </script>
 </body>
 
 </html>

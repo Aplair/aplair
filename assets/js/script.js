@@ -20,11 +20,12 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById('successClose').addEventListener('click', function () {
     document.getElementById('successOverlay').classList.remove('active');
   });
-  var currentLang = "en";
+  var currentLang = window._initialLang || "en";
   var currentBasePrice = 0;
   function setLang(lang) {
     currentLang = lang;
     var isAr = lang === "ar";
+    localStorage.setItem('aplair_lang', lang);
     document.documentElement.lang = lang;
     document.documentElement.dir = isAr ? "rtl" : "ltr";
     document.body.classList.toggle("ar", isAr);
@@ -54,7 +55,11 @@ document.addEventListener("DOMContentLoaded", function () {
         contactPackageSelected.textContent = isAr ? selectedOption.dataset.ar : selectedOption.dataset.en;
       }
     }
+    document.querySelectorAll("[data-lang-content]").forEach(function (el) {
+      el.style.display = el.dataset.langContent === lang ? "block" : "none";
+    });
   }
+  setLang(currentLang);
   document.getElementById("btn-en").addEventListener("click", function () { setLang("en"); });
   document.getElementById("btn-ar").addEventListener("click", function () { setLang("ar"); });
   document.getElementById("btn-hire").addEventListener("click", function () {
@@ -129,94 +134,94 @@ document.addEventListener("DOMContentLoaded", function () {
   if (submitBookingBtn) {
     submitBookingBtn.addEventListener("click", function () {
       const { total, addons } = updatePrice();
-    const activeBtn = document.querySelector(".btn-open-booking.last-clicked");
-    const nameVal = document.getElementById("bookingName").value.trim();
-    const emailVal = document.getElementById("bookingEmail").value.trim();
-    const waVal = document.getElementById("bookingWA").value.trim();
-    const countryCode = document.getElementById("bookingCountryCode").value;
-    const briefVal = document.getElementById("bookingBrief").value.trim();
-    ['bookingName', 'bookingEmail', 'bookingWA', 'bookingBrief', 'agreePolicies'].forEach(function (id) {
-      var el = document.getElementById(id);
-      if (el) { el.classList.remove('field-error'); el.parentElement.classList.remove('field-error'); }
-    });
-    var hasError = false;
-    if (!nameVal) {
-      document.getElementById('bookingName').classList.add('field-error');
-      hasError = true;
-    }
-    if (!emailVal) {
-      document.getElementById('bookingEmail').classList.add('field-error');
-      hasError = true;
-    }
-    if (!waVal) {
-      document.getElementById('bookingWA').classList.add('field-error');
-      hasError = true;
-    }
-    if (!briefVal) {
-      document.getElementById('bookingBrief').classList.add('field-error');
-      hasError = true;
-    }
-    if (hasError) {
-      showToast(currentLang === "ar" ? "⚠️ يرجى ملء جميع الحقول المطلوبة" : "⚠️ Please fill in all required fields", "error");
-      return;
-    }
-    const agreePolicies = document.getElementById("agreePolicies");
-    if (agreePolicies && !agreePolicies.checked) {
-      showToast(currentLang === "ar" ? "⚠️ يجب الموافقة على سياسة الاسترجاع وشروط الاستخدام" : "⚠️ You must agree to the Refund Policy and Terms of Service", "error");
-      agreePolicies.parentElement.classList.add('field-error');
-      agreePolicies.focus();
-      return;
-    }
-    if (waVal.length < 7) {
-      showToast(currentLang === "ar" ? "رقم الواتساب يجب أن يكون 7 أرقام على الأقل" : "WhatsApp number must be at least 7 digits", "error");
-      document.getElementById("bookingWA").focus();
-      return;
-    }
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(emailVal)) {
-      showToast(currentLang === "ar" ? "يرجى إدخال بريد إلكتروني صحيح" : "Please enter a valid email address", "error");
-      document.getElementById("bookingEmail").focus();
-      return;
-    }
-    const data = {
-      name: nameVal,
-      email: emailVal,
-      phone: countryCode + " " + waVal,
-      package: activeBtn.dataset.packageEn,
-      basePrice: "$" + currentBasePrice,
-      addons: addons,
-      totalPrice: total,
-      projectDetails: briefVal,
-      videoDetails: briefVal,
-      reference: document.getElementById('bookingReference').value.trim() || 'None',
-      portfolioUsage: (document.getElementById("noPortfolio") && document.getElementById("noPortfolio").checked) ? "HIDE (Extra Fee Apply)" : "Allowed",
-      policyAgreed: (document.getElementById("agreePolicies") && document.getElementById("agreePolicies").checked) ? "Agreed" : "No",
-      language: currentLang,
-      timestamp: new Date().toISOString()
-    };
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwBmYOubj6GYvc9i2MCfV9A9uPNNoRi6jds-IN_vKdRlLMytkCB8gF55I1uslOrvcQ6LQ/exec';
-    const submitBtn = this;
-    const btnText = submitBtn.querySelector('span');
-    btnText.textContent = currentLang === 'ar' ? 'جاري الإرسال...' : 'SENDING...';
-    submitBtn.style.pointerEvents = 'none';
-    submitBtn.style.opacity = '0.7';
-    console.log('Submitting data to Google Sheets:', JSON.stringify(data));
-    const params = new URLSearchParams(data).toString();
-    const iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    iframe.src = scriptURL + '?' + params;
-    document.body.appendChild(iframe);
+      const activeBtn = document.querySelector(".btn-open-booking.last-clicked");
+      const nameVal = document.getElementById("bookingName").value.trim();
+      const emailVal = document.getElementById("bookingEmail").value.trim();
+      const waVal = document.getElementById("bookingWA").value.trim();
+      const countryCode = document.getElementById("bookingCountryCode").value;
+      const briefVal = document.getElementById("bookingBrief").value.trim();
+      ['bookingName', 'bookingEmail', 'bookingWA', 'bookingBrief', 'agreePolicies'].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) { el.classList.remove('field-error'); el.parentElement.classList.remove('field-error'); }
+      });
+      var hasError = false;
+      if (!nameVal) {
+        document.getElementById('bookingName').classList.add('field-error');
+        hasError = true;
+      }
+      if (!emailVal) {
+        document.getElementById('bookingEmail').classList.add('field-error');
+        hasError = true;
+      }
+      if (!waVal) {
+        document.getElementById('bookingWA').classList.add('field-error');
+        hasError = true;
+      }
+      if (!briefVal) {
+        document.getElementById('bookingBrief').classList.add('field-error');
+        hasError = true;
+      }
+      if (hasError) {
+        showToast(currentLang === "ar" ? "⚠️ يرجى ملء جميع الحقول المطلوبة" : "⚠️ Please fill in all required fields", "error");
+        return;
+      }
+      const agreePolicies = document.getElementById("agreePolicies");
+      if (agreePolicies && !agreePolicies.checked) {
+        showToast(currentLang === "ar" ? "⚠️ يجب الموافقة على سياسة الاسترجاع وشروط الاستخدام" : "⚠️ You must agree to the Refund Policy and Terms of Service", "error");
+        agreePolicies.parentElement.classList.add('field-error');
+        agreePolicies.focus();
+        return;
+      }
+      if (waVal.length < 7) {
+        showToast(currentLang === "ar" ? "رقم الواتساب يجب أن يكون 7 أرقام على الأقل" : "WhatsApp number must be at least 7 digits", "error");
+        document.getElementById("bookingWA").focus();
+        return;
+      }
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(emailVal)) {
+        showToast(currentLang === "ar" ? "يرجى إدخال بريد إلكتروني صحيح" : "Please enter a valid email address", "error");
+        document.getElementById("bookingEmail").focus();
+        return;
+      }
+      const data = {
+        name: nameVal,
+        email: emailVal,
+        phone: countryCode + " " + waVal,
+        package: activeBtn.dataset.packageEn,
+        basePrice: "$" + currentBasePrice,
+        addons: addons,
+        totalPrice: total,
+        projectDetails: briefVal,
+        videoDetails: briefVal,
+        reference: document.getElementById('bookingReference').value.trim() || 'None',
+        portfolioUsage: (document.getElementById("noPortfolio") && document.getElementById("noPortfolio").checked) ? "HIDE (Extra Fee Apply)" : "Allowed",
+        policyAgreed: (document.getElementById("agreePolicies") && document.getElementById("agreePolicies").checked) ? "Agreed" : "No",
+        language: currentLang,
+        timestamp: new Date().toISOString()
+      };
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbwBmYOubj6GYvc9i2MCfV9A9uPNNoRi6jds-IN_vKdRlLMytkCB8gF55I1uslOrvcQ6LQ/exec';
+      const submitBtn = this;
+      const btnText = submitBtn.querySelector('span');
+      btnText.textContent = currentLang === 'ar' ? 'جاري الإرسال...' : 'SENDING...';
+      submitBtn.style.pointerEvents = 'none';
+      submitBtn.style.opacity = '0.7';
+      console.log('Submitting data to Google Sheets:', JSON.stringify(data));
+      const params = new URLSearchParams(data).toString();
+      const iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      iframe.src = scriptURL + '?' + params;
+      document.body.appendChild(iframe);
       setTimeout(function () {
         document.body.removeChild(iframe);
         const successTotal = document.getElementById('successTotalValue');
         if (successTotal) { successTotal.textContent = data.totalPrice; }
         modal.classList.remove('active');
-      document.body.style.overflow = '';
-      document.getElementById('successOverlay').classList.add('active');
-      btnText.textContent = currentLang === 'ar' ? (btnText.dataset.ar || 'تأكيد الحجز →') : (btnText.dataset.en || 'SUBMIT BOOKING →');
-      submitBtn.style.pointerEvents = 'all';
-      submitBtn.style.opacity = '1';
-    }, 3000);
+        document.body.style.overflow = '';
+        document.getElementById('successOverlay').classList.add('active');
+        btnText.textContent = currentLang === 'ar' ? (btnText.dataset.ar || 'تأكيد الحجز →') : (btnText.dataset.en || 'SUBMIT BOOKING →');
+        submitBtn.style.pointerEvents = 'all';
+        submitBtn.style.opacity = '1';
+      }, 3000);
     });
   }
   const contactPackageSelect = document.getElementById("contactPackage");
@@ -231,83 +236,83 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (contactPackageSelected && contactPackageWrap && contactPackageSelect && contactAddonsContainer && contactAddonsSection && contactPremiumMessage) {
     contactPackageSelected.addEventListener("click", function (e) {
-    e.stopPropagation();
-    const isOpen = contactPackageWrap.classList.toggle("open");
-    const parentGroup = contactPackageWrap.closest(".form-group");
-    if (parentGroup) parentGroup.classList.toggle("pkg-group-open", isOpen);
-  });
-  document.addEventListener("click", function (e) {
-    if (contactPackageWrap && !contactPackageWrap.contains(e.target)) {
-      contactPackageWrap.classList.remove("open");
-      const parentGroup = contactPackageWrap.closest(".form-group");
-      if (parentGroup) parentGroup.classList.remove("pkg-group-open");
-    }
-  });
-  function updateContactPrice() {
-    let addonsTotal = 0;
-    let selectedAddons = [];
-    let selectedLabels = [];
-    if (contactAddonsSection.style.display !== "none") {
-      contactAddonChecks.forEach(check => {
-        if (check.checked) {
-          addonsTotal += parseInt(check.dataset.price);
-          selectedAddons.push(check.dataset.id);
-          selectedLabels.push(check.dataset.labelEn);
-        }
-      });
-    } else if (contactPackageSelect.value === "Premium real estate Bundle") {
-      selectedLabels = ["AI Voiceover", "AI Architectural Visualization"];
-    }
-    let total = contactCurrentBasePrice + addonsTotal;
-    const contactNoPortfolio = document.getElementById("contactNoPortfolio");
-    if (contactNoPortfolio && contactNoPortfolio.checked) {
-      total += Math.round(total * 0.4);
-    }
-    document.getElementById("contactSummaryBasePrice").textContent = "$" + contactCurrentBasePrice;
-    document.getElementById("contactSummaryAddonsPrice").textContent = "$" + addonsTotal;
-    document.getElementById("contactSummaryTotalPrice").textContent = "$" + total;
-    return {
-      total: "$" + total,
-      addons: selectedLabels.length ? selectedLabels.join(", ") : "None"
-    };
-  }
-  contactPackageOptions.forEach(function (opt) {
-    opt.addEventListener("click", function (e) {
       e.stopPropagation();
-      contactPackageOptions.forEach(o => o.classList.remove("selected"));
-      this.classList.add("selected");
-      const val = this.dataset.value;
-      const price = parseInt(this.dataset.price) || 0;
-      contactPackageSelect.value = val;
-      contactCurrentBasePrice = price;
-      contactPackageSelected.textContent = currentLang === 'ar' ? this.dataset.ar : this.dataset.en;
-      contactPackageSelected.classList.add('has-value');
-      contactPackageWrap.classList.remove("open");
-      contactPackageWrap.parentElement.classList.add('filled');
-      contactPackageWrap.parentElement.classList.remove('field-error');
-      if (!val) {
-        contactAddonsContainer.style.display = "none";
-      } else {
-        contactAddonsContainer.style.display = "block";
-        if (val === "Premium real estate Bundle") {
-          contactAddonsSection.style.display = "none";
-          contactPremiumMessage.style.display = "block";
-        } else {
-          contactAddonsSection.style.display = "block";
-          contactPremiumMessage.style.display = "none";
-        }
-      }
-      contactAddonChecks.forEach(c => c.checked = false);
-      const contactNoPortfolio = document.getElementById("contactNoPortfolio");
-      if (contactNoPortfolio) contactNoPortfolio.checked = false;
-      const contactAgreePolicies = document.getElementById("contactAgreePolicies");
-      if (contactAgreePolicies) {
-        contactAgreePolicies.checked = false;
-        contactAgreePolicies.parentElement.classList.remove('field-error');
-      }
-      updateContactPrice();
+      const isOpen = contactPackageWrap.classList.toggle("open");
+      const parentGroup = contactPackageWrap.closest(".form-group");
+      if (parentGroup) parentGroup.classList.toggle("pkg-group-open", isOpen);
     });
-  });
+    document.addEventListener("click", function (e) {
+      if (contactPackageWrap && !contactPackageWrap.contains(e.target)) {
+        contactPackageWrap.classList.remove("open");
+        const parentGroup = contactPackageWrap.closest(".form-group");
+        if (parentGroup) parentGroup.classList.remove("pkg-group-open");
+      }
+    });
+    function updateContactPrice() {
+      let addonsTotal = 0;
+      let selectedAddons = [];
+      let selectedLabels = [];
+      if (contactAddonsSection.style.display !== "none") {
+        contactAddonChecks.forEach(check => {
+          if (check.checked) {
+            addonsTotal += parseInt(check.dataset.price);
+            selectedAddons.push(check.dataset.id);
+            selectedLabels.push(check.dataset.labelEn);
+          }
+        });
+      } else if (contactPackageSelect.value === "Premium real estate Bundle") {
+        selectedLabels = ["AI Voiceover", "AI Architectural Visualization"];
+      }
+      let total = contactCurrentBasePrice + addonsTotal;
+      const contactNoPortfolio = document.getElementById("contactNoPortfolio");
+      if (contactNoPortfolio && contactNoPortfolio.checked) {
+        total += Math.round(total * 0.4);
+      }
+      document.getElementById("contactSummaryBasePrice").textContent = "$" + contactCurrentBasePrice;
+      document.getElementById("contactSummaryAddonsPrice").textContent = "$" + addonsTotal;
+      document.getElementById("contactSummaryTotalPrice").textContent = "$" + total;
+      return {
+        total: "$" + total,
+        addons: selectedLabels.length ? selectedLabels.join(", ") : "None"
+      };
+    }
+    contactPackageOptions.forEach(function (opt) {
+      opt.addEventListener("click", function (e) {
+        e.stopPropagation();
+        contactPackageOptions.forEach(o => o.classList.remove("selected"));
+        this.classList.add("selected");
+        const val = this.dataset.value;
+        const price = parseInt(this.dataset.price) || 0;
+        contactPackageSelect.value = val;
+        contactCurrentBasePrice = price;
+        contactPackageSelected.textContent = currentLang === 'ar' ? this.dataset.ar : this.dataset.en;
+        contactPackageSelected.classList.add('has-value');
+        contactPackageWrap.classList.remove("open");
+        contactPackageWrap.parentElement.classList.add('filled');
+        contactPackageWrap.parentElement.classList.remove('field-error');
+        if (!val) {
+          contactAddonsContainer.style.display = "none";
+        } else {
+          contactAddonsContainer.style.display = "block";
+          if (val === "Premium real estate Bundle") {
+            contactAddonsSection.style.display = "none";
+            contactPremiumMessage.style.display = "block";
+          } else {
+            contactAddonsSection.style.display = "block";
+            contactPremiumMessage.style.display = "none";
+          }
+        }
+        contactAddonChecks.forEach(c => c.checked = false);
+        const contactNoPortfolio = document.getElementById("contactNoPortfolio");
+        if (contactNoPortfolio) contactNoPortfolio.checked = false;
+        const contactAgreePolicies = document.getElementById("contactAgreePolicies");
+        if (contactAgreePolicies) {
+          contactAgreePolicies.checked = false;
+          contactAgreePolicies.parentElement.classList.remove('field-error');
+        }
+        updateContactPrice();
+      });
+    });
     contactAddonChecks.forEach(check => {
       check.addEventListener("change", updateContactPrice);
     });
@@ -688,13 +693,15 @@ document.querySelectorAll('.service-card').forEach(function (card) {
   var glow = document.createElement("div");
   glow.className = "card-glow-effect";
   card.insertBefore(glow, card.firstChild);
-  let ticking = false;
+  let cardRect;
+  card.addEventListener("mouseenter", function () {
+    cardRect = card.getBoundingClientRect();
+  });
   card.addEventListener("mousemove", function (e) {
-    if (!ticking) {
+    if (!ticking && cardRect) {
       requestAnimationFrame(() => {
-        var rect = card.getBoundingClientRect();
-        var x = e.clientX - rect.left - 150;
-        var y = e.clientY - rect.top - 150;
+        var x = e.clientX - cardRect.left - 150;
+        var y = e.clientY - cardRect.top - 150;
         glow.style.transform = "translate(" + x + "px, " + y + "px)";
         ticking = false;
       });
@@ -734,14 +741,17 @@ document.querySelectorAll('.service-card').forEach(function (card) {
   allCards.forEach(function (card) {
     var thumb = card.querySelector('.card-thumb');
     let ticking = false;
+    let cardRect;
+    card.addEventListener('mouseenter', function () {
+      cardRect = card.getBoundingClientRect();
+    });
     card.addEventListener('mousemove', function (e) {
-      if (!ticking) {
+      if (!ticking && cardRect) {
         requestAnimationFrame(() => {
-          var rect = card.getBoundingClientRect();
-          var x = e.clientX - rect.left;
-          var y = e.clientY - rect.top;
-          var centerX = rect.width / 2;
-          var centerY = rect.height / 2;
+          var x = e.clientX - cardRect.left;
+          var y = e.clientY - cardRect.top;
+          var centerX = cardRect.width / 2;
+          var centerY = cardRect.height / 2;
           var deltaX = (x - centerX) / centerX;
           var deltaY = (y - centerY) / centerY;
           card.style.transform = 'perspective(1000px) rotateY(' + (deltaX * 6) + 'deg) rotateX(' + (deltaY * -6) + 'deg) translateY(-8px) scale(1.02)';
@@ -1000,8 +1010,8 @@ document.querySelectorAll('.service-card').forEach(function (card) {
     const increment = target / speed;
     let currentCount = 0;
 
-    // Read properties ONCE before the animation loop avoids reading the DOM on each tick (Forced Reflow)
-    const originalText = counter.innerText || '';
+    // Use textContent instead of innerText to avoid Forced Reflow
+    const originalText = counter.textContent || '';
     const hasK = originalText.includes('K');
     const hasPlus = originalText.includes('+');
     let suffix = hasK ? 'K+' : (hasPlus ? '+' : '');

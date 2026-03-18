@@ -1,193 +1,42 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Terms of Service | Aplair</title>
+    <!-- Preconnect to critical origins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://grainy-gradients.vercel.app">
+
     <!-- CSS loaded with cache-busting version -->
-    <link rel="stylesheet" href="assets/css/style.min.css?v=2.1">
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300&family=Noto+Kufi+Arabic:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.min.css?v=2.2">
+
+    <!-- Critical fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=Noto+Kufi+Arabic:wght@400;700;900&family=Cormorant+Garamond:ital,wght@1,300&display=swap"
+        rel="stylesheet">
+
+    <!-- Inline script to apply language ASAP -->
+    <script>
+        (function () {
+            try {
+                var lang = localStorage.getItem('aplair_lang') || (navigator.language.startsWith('ar') ? 'ar' : 'en');
+                document.documentElement.lang = lang;
+                document.documentElement.dir = (lang === 'ar' ? 'rtl' : 'ltr');
+                if (lang === 'ar') document.documentElement.classList.add('ar');
+                window._initialLang = lang;
+            } catch (e) { }
+        })();
+    </script>
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="48x48" href="https://aplair.github.io/Aplair/favicon.png">
     <link rel="apple-touch-icon" href="https://aplair.github.io/Aplair/favicon.png">
-    <style>
-        :root {
-            --glass: rgba(11, 26, 26, 0.6);
-            --glass-border: rgba(0, 229, 204, 0.15);
-        }
-
-        body {
-            background: var(--bg);
-            color: var(--text);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .page-bg {
-            position: fixed;
-            inset: 0;
-            z-index: -2;
-            background: radial-gradient(ellipse 60% 50% at 70% 50%, rgba(0, 100, 90, 0.12) 0%, transparent 70%), 
-                        linear-gradient(170deg, #050a0a 0%, #071515 50%, #050a0a 100%);
-        }
-
-        .page-grid {
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            background-image: linear-gradient(rgba(0, 229, 204, 0.02) 1px, transparent 1px), 
-                              linear-gradient(90deg, rgba(0, 229, 204, 0.02) 1px, transparent 1px);
-            background-size: 80px 80px;
-            mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
-        }
-
-        .policy-wrapper {
-            flex: 1;
-            padding: 140px 20px 80px;
-            max-width: 1000px;
-            margin: 0 auto;
-            width: 100%;
-        }
-
-        .policy-card {
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            padding: 60px;
-            border-radius: 4px;
-            position: relative;
-            overflow: hidden;
-            animation: revealUp 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        @keyframes revealUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .policy-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100px;
-            background: var(--cyan);
-        }
-
-        .section-label {
-            display: inline-block;
-            color: var(--cyan);
-            font-size: 11px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
-
-        .policy-title {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
-            line-height: 1;
-            margin-bottom: 40px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--text);
-        }
-
-        .policy-title .accent {
-            color: var(--cyan);
-        }
-
-        .policy-content {
-            font-family: 'DM Sans', sans-serif;
-            color: var(--text-dim);
-            line-height: 1.8;
-            font-size: 1.15rem;
-        }
-
-        html[dir="rtl"] .policy-content {
-            font-family: 'Noto Kufi Arabic', sans-serif;
-            text-align: right;
-            font-size: 1rem;
-        }
-
-        .policy-content h2 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.8rem;
-            color: var(--cyan);
-            margin: 50px 0 20px;
-            letter-spacing: 1.5px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .policy-content h2::after {
-            content: '';
-            height: 1px;
-            flex: 1;
-            background: var(--border2);
-        }
-
-        .policy-content p {
-            margin-bottom: 20px;
-        }
-
-        .policy-content ul {
-            list-style: none;
-            margin-bottom: 30px;
-        }
-
-        .policy-content li {
-            margin-bottom: 12px;
-            padding-left: 25px;
-            position: relative;
-        }
-
-        html[dir="rtl"] .policy-content li {
-            padding-left: 0;
-            padding-right: 25px;
-        }
-
-        .policy-content li::before {
-            content: '→';
-            position: absolute;
-            left: 0;
-            color: var(--cyan);
-            font-weight: bold;
-        }
-
-        html[dir="rtl"] .policy-content li::before {
-            left: auto;
-            right: 0;
-            content: '←';
-        }
-
-        .policy-content strong {
-            color: var(--cyan);
-            font-weight: 500;
-        }
-
-        /* Content Switcher Visibility */
-        [data-lang-content] { display: none; }
-        html[lang="en"] [data-lang-content="en"] { display: block; }
-        html[lang="ar"] [data-lang-content="ar"] { display: block; }
-
-        @media (max-width: 768px) {
-            .policy-card { padding: 30px; }
-            .policy-title { font-size: 3rem; }
-        }
-    </style>
 </head>
 
-<body>
+<body class="ar">
+    <script>if (window._initialLang === 'en') document.body.classList.remove('ar');</script>
     <div class="page-bg"></div>
     <div class="page-grid"></div>
 
@@ -205,142 +54,60 @@
         </ul>
         <div class="nav-right">
             <div class="lang-toggle">
-                <button class="lang-btn active" id="btn-en">EN</button>
+                <button class="lang-btn" id="btn-en">EN</button>
                 <button class="lang-btn" id="btn-ar">AR</button>
             </div>
-            <a href="index.html#pricing" class="btn-hire" style="text-decoration: none; padding: 12px 20px;" data-en="BOOK NOW" data-ar="احجز الآن">BOOK NOW</a>
+            <a href="index.html#pricing" class="btn-hire" data-en="BOOK NOW" data-ar="احجز الآن">BOOK NOW</a>
         </div>
     </nav>
 
     <main class="policy-wrapper">
         <div class="policy-card">
-            <!-- English Section -->
             <div data-lang-content="en">
                 <span class="section-label">Terms & Conditions</span>
                 <h1 class="policy-title">Terms of <span class="accent">Service</span></h1>
-                
                 <div class="policy-content">
                     <p>Welcome to Aplair. By using our services, you agree to the following terms and conditions:</p>
-
                     <h2>1. Services</h2>
                     <p>Aplair provides cinematic real estate video editing and related digital media services.</p>
-
                     <h2>2. Payment Terms</h2>
                     <ul>
                         <li>All services require <strong>100% upfront payment</strong> before work begins.</li>
                         <li>No project will start without full payment.</li>
-                        <li>Payments are processed securely via trusted platforms.</li>
                     </ul>
-
-                    <h2>3. Project Workflow</h2>
-                    <ul>
-                        <li>Clients must provide all required materials before work begins.</li>
-                        <li>A first draft will be delivered for review.</li>
-                        <li>Limited revisions are included as agreed per project.</li>
-                    </ul>
-
-                    <h2>4. Revisions</h2>
-                    <ul>
-                        <li>Revisions are limited to the agreed scope.</li>
-                        <li>Additional revisions may incur extra charges.</li>
-                    </ul>
-
-                    <h2>5. Delivery</h2>
-                    <ul>
-                        <li>Final files will only be delivered after full confirmation.</li>
-                        <li>Delivery timelines depend on project scope and client responsiveness.</li>
-                    </ul>
-
                     <h2>6. Intellectual Property & Portfolio Usage</h2>
                     <ul>
                         <li>Final videos become the property of the client after full payment.</li>
                         <li>Aplair reserves the right to use completed work for portfolio and marketing purposes.</li>
-                        <li>If a client does not want their project used in the portfolio, an <strong>additional fee</strong> applies.</li>
+                        <li>If a client does not want their project used in the portfolio, an <strong>additional
+                                fee</strong> applies.</li>
                     </ul>
-
                     <h2>7. Refunds</h2>
-                    <p>Refunds are governed by our <a href="refund.html" style="color: var(--cyan); text-decoration: none; border-bottom: 1px solid var(--cyan-glow);">Refund Policy</a>. By purchasing our services, you agree to those terms.</p>
-
-                    <h2>8. Client Responsibilities</h2>
-                    <ul>
-                        <li>Provide accurate project details</li>
-                        <li>Respond in a timely manner</li>
-                        <li>Not misuse or redistribute draft versions</li>
-                    </ul>
-
-                    <h2>9. Limitation of Liability</h2>
-                    <p>Aplair is not liable for business losses, delays caused by external factors, or misuse of content by the client.</p>
-
-                    <h2>10. Termination</h2>
-                    <p>We reserve the right to terminate any project in case of misuse, abuse, or violation of these terms.</p>
-
-                    <h2>11. Changes to Terms</h2>
-                    <p>We may update these terms at any time. Continued use of our services implies acceptance of the updated terms.</p>
+                    <p>Refunds are governed by our <a href="refund-policy.html">Refund Policy</a>.</p>
                 </div>
             </div>
 
-            <!-- Arabic Section -->
             <div data-lang-content="ar">
                 <span class="section-label">الشروط والأحكام</span>
                 <h1 class="policy-title">شروط <span class="accent">الاستخدام</span></h1>
-                
                 <div class="policy-content">
                     <p>مرحبًا بكم في Aplair. باستخدام خدماتنا، فإنك توافق على الشروط والأحكام التالية:</p>
-
                     <h2>1. الخدمات</h2>
                     <p>تقدم Aplair خدمات مونتاج فيديو عقاري سينمائي وخدمات رقمية ذات صلة.</p>
-
                     <h2>2. شروط الدفع</h2>
                     <ul>
                         <li>جميع الخدمات تتطلب <strong>دفع كامل 100%</strong> قبل بدء العمل.</li>
                         <li>لن يبدأ أي مشروع بدون دفع كامل.</li>
-                        <li>تتم معالجة المدفوعات بأمان عبر منصات موثوقة.</li>
                     </ul>
-
-                    <h2>3. سير العمل بالمشروع</h2>
-                    <ul>
-                        <li>يجب على العميل تقديم جميع المواد المطلوبة قبل بدء العمل.</li>
-                        <li>سيتم تسليم النسخة الأولى للمراجعة.</li>
-                        <li>التعديلات محدودة حسب الاتفاق لكل مشروع.</li>
-                    </ul>
-
-                    <h2>4. التعديلات</h2>
-                    <ul>
-                        <li>التعديلات محدودة ضمن نطاق الاتفاق.</li>
-                        <li>أي تعديلات إضافية قد تتطلب رسومًا إضافية.</li>
-                    </ul>
-
-                    <h2>5. التسليم</h2>
-                    <ul>
-                        <li>سيتم تسليم الملفات النهائية فقط بعد التأكيد الكامل من العميل.</li>
-                        <li>مواعيد التسليم تعتمد على نطاق المشروع واستجابة العميل.</li>
-                    </ul>
-
                     <h2>6. حقوق الملكية واستخدام البورتفوليو</h2>
                     <ul>
                         <li>تصبح الفيديوهات النهائية ملكًا للعميل بعد دفع كامل المبلغ.</li>
                         <li>تحتفظ Aplair بالحق في استخدام الأعمال المكتملة للبورتفوليو والتسويق.</li>
-                        <li>إذا كان العميل لا يرغب في استخدام مشروعه في البورتفوليو، يتم تطبيق <strong>رسوم إضافية</strong>.</li>
+                        <li>إذا كان العميل لا يرغب في استخدام مشروعه في البورتفوليو، يتم تطبيق <strong>رسوم
+                                إضافية</strong>.</li>
                     </ul>
-
                     <h2>7. الاسترجاع</h2>
-                    <p>تخضع الاسترجاعات لـ <a href="refund.html" style="color: var(--cyan); text-decoration: none; border-bottom: 1px solid var(--cyan-glow);">سياسة استرجاع الأموال</a>. باستخدام خدماتنا، فإنك توافق على هذه الشروط.</p>
-
-                    <h2>8. مسؤوليات العميل</h2>
-                    <ul>
-                        <li>تقديم تفاصيل دقيقة للمشروع</li>
-                        <li>الرد في الوقت المناسب</li>
-                        <li>عدم إساءة استخدام أو إعادة توزيع النسخ التجريبية</li>
-                    </ul>
-
-                    <h2>9. تحديد المسؤولية</h2>
-                    <p>لا تتحمل Aplair المسؤولية عن خسائر الأعمال الناتجة عن الخدمة، أو التأخيرات الناتجة عن عوامل خارجية، أو سوء استخدام المحتوى.</p>
-
-                    <h2>10. إنهاء الخدمة</h2>
-                    <p>نحتفظ بالحق في إنهاء أي مشروع في حال إساءة الاستخدام أو خرق الشروط.</p>
-
-                    <h2>11. التغييرات على الشروط</h2>
-                    <p>قد نقوم بتحديث هذه الشروط في أي وقت. استمرار استخدامك لخدماتنا يعني قبولك للشروط المحدثة.</p>
+                    <p>تخضع الاسترجاعات لـ <a href="refund-policy.html">سياسة استرجاع الأموال</a>.</p>
                 </div>
             </div>
         </div>
@@ -348,62 +115,15 @@
 
     <footer>
         <div class="footer-logo"><img src="assets/images/footer-logo.png" alt="Aplair" width="40" height="40"></div>
-        <div class="footer-links" style="margin: 15px 0 5px; display: flex; gap: 20px; justify-content: center;">
-            <a href="refund-policy.html" style="color: var(--text-muted); text-decoration: none; font-size: 12px; transition: color 0.3s;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--text-muted)'" data-en="Refund Policy" data-ar="سياسة الاسترجاع">Refund Policy</a>
-            <a href="terms-of-service.html" style="color: var(--text-muted); text-decoration: none; font-size: 12px; transition: color 0.3s;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--text-muted)'" data-en="Terms of Service" data-ar="شروط الاستخدام">Terms of Service</a>
+        <div class="footer-links">
+            <a href="refund-policy.html" data-en="Refund Policy" data-ar="سياسة الاسترجاع">Refund Policy</a>
+            <a href="terms-of-service.html" data-en="Terms of Service" data-ar="شروط الاستخدام">Terms of Service</a>
         </div>
-        <div class="footer-copy" data-en="© 2026 Aplair. All rights reserved." data-ar="© 2026 Aplair. جميع الحقوق محفوظة."> © 2026 Aplair. All rights reserved.</div>
+        <div class="footer-copy" data-en="© 2026 Aplair. All rights reserved."
+            data-ar="© 2026 Aplair. جميع الحقوق محفوظة."> © 2026 Aplair. All rights reserved.</div>
     </footer>
-    
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var dot = document.createElement("div");
-            dot.className = "cursor-dot";
-            document.body.appendChild(dot);
-            var outline = document.createElement("div");
-            outline.className = "cursor-outline";
-            document.body.appendChild(outline);
-            var cursorX = 0, cursorY = 0, cursorRaf = false;
-            document.addEventListener("mousemove", function (e) {
-                cursorX = e.clientX;
-                cursorY = e.clientY;
-                if (!cursorRaf) {
-                    cursorRaf = true;
-                    requestAnimationFrame(function () {
-                        var tx = cursorX + "px";
-                        var ty = cursorY + "px";
-                        dot.style.transform = "translate(calc(" + tx + " - 50%), calc(" + ty + " - 50%))";
-                        outline.style.transform = "translate(calc(" + tx + " - 50%), calc(" + ty + " - 50%))";
-                        cursorRaf = false;
-                    });
-                }
-            });
-            document.querySelectorAll("a, button").forEach(function (el) {
-                el.addEventListener("mouseenter", function () {
-                    outline.classList.add("hover");
-                    dot.classList.add("hover");
-                });
-                el.addEventListener("mouseleave", function () {
-                    outline.classList.remove("hover");
-                    dot.classList.remove("hover");
-                });
-            });
 
-            var currentLang = "en";
-            function setLang(lang) {
-                currentLang = lang;
-                var isAr = lang === "ar";
-                document.documentElement.lang = lang;
-                document.documentElement.dir = isAr ? "rtl" : "ltr";
-                document.getElementById("btn-en").classList.toggle("active", !isAr);
-                document.getElementById("btn-ar").classList.toggle("active", isAr);
-                document.querySelectorAll("[data-en]").forEach(function (el) {
-                    el.textContent = isAr ? el.dataset.ar : el.dataset.en;
-                });
-            }
-            document.getElementById("btn-en").addEventListener("click", function () { setLang("en"); });
-            document.getElementById("btn-ar").addEventListener("click", function () { setLang("ar"); });
-        });
-    </script>
+    <script defer src="assets/js/script.min.js?v=2.2"></script>
 </body>
+
 </html>

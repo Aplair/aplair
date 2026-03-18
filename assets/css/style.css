@@ -368,6 +368,10 @@ body.ar .hero-title {
     font-family: inherit;
     text-decoration: none;
     display: inline-block;
+    min-width: 330px;
+    min-height: 50px;
+    text-align: center;
+    white-space: nowrap;
 }
 
 .btn-primary:hover {
@@ -4222,7 +4226,7 @@ nav {
 
 .btn-secondary {
     display: inline-block;
-    padding: 16px 40px;
+    padding: 16px 20px;
     border: 1px solid var(--cyan);
     color: var(--text);
     text-decoration: none;
@@ -4234,7 +4238,8 @@ nav {
     cursor: pointer;
     /* Reserve dimensions to prevent CLS */
     min-height: 50px;
-    min-width: 120px;
+    min-width: 380px;
+    text-align: center;
     white-space: nowrap;
 }
 
@@ -4923,5 +4928,154 @@ body.ar .btn-pricing {
         width: 100%;
         text-align: center;
         box-sizing: border-box;
+    }
+}
+
+/* === LEGAL PAGES (REFUND & TERMS) === */
+.policy-wrapper {
+    flex: 1;
+    padding: 140px 20px 80px;
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.policy-card {
+    background: rgba(11, 26, 26, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 229, 204, 0.15);
+    padding: 60px;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    animation: revealUp 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.policy-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100px;
+    background: var(--cyan);
+}
+
+.policy-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    line-height: 1.1;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text);
+}
+
+.policy-content {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text-dim);
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+body.ar .policy-content {
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    text-align: right;
+    font-size: 0.95rem;
+}
+
+.policy-content h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--cyan);
+    margin: 50px 0 20px;
+    letter-spacing: 1.5px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.policy-content h2::after {
+    content: '';
+    height: 1px;
+    flex: 1;
+    background: var(--border2);
+}
+
+.policy-content p {
+    margin-bottom: 20px;
+}
+
+.policy-content ul {
+    list-style: none;
+    margin-bottom: 30px;
+}
+
+.policy-content li {
+    margin-bottom: 12px;
+    padding-left: 25px;
+    position: relative;
+}
+
+body.ar .policy-content li {
+    padding-left: 0;
+    padding-right: 25px;
+}
+
+.policy-content li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--cyan);
+    font-weight: bold;
+}
+
+body.ar .policy-content li::before {
+    left: auto;
+    right: 0;
+    content: '←';
+}
+
+.policy-content strong {
+    color: var(--cyan);
+    font-weight: 500;
+}
+
+.btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 30px;
+    background: rgba(0, 229, 204, 0.05);
+    border: 1px solid var(--cyan);
+    color: var(--cyan);
+    text-decoration: none;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    transition: all 0.3s;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.btn-whatsapp:hover {
+    background: var(--cyan);
+    color: #000;
+}
+
+@media (max-width: 768px) {
+    .policy-card {
+        padding: 30px;
+    }
+
+    .policy-title {
+        font-size: 2.8rem;
+    }
+
+    .policy-wrapper {
+        padding-top: 100px;
     }
 }
